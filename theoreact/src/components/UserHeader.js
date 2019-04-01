@@ -6,12 +6,14 @@ class UserHeader extends Component {
   getReviews = (dispatch, loggedInUser) => {
     window.$.ajax({
       type: "GET",
-      url: "http://localhost:8080/session/review-trainer/" + loggedInUser.id,
+      url: `http://localhost:8080/session/review-trainer/${
+        loggedInUser.id
+      }?index1=0&index2=10`,
       dataType: "json",
       async: true,
       success: reviews => {
-        console.log(reviews);
-        dispatch({ type: "FILL_MY_REVIEWS", payload: reviews });
+        console.log(reviews.results);
+        dispatch({ type: "FILL_MY_REVIEWS", payload: reviews.results });
         this.props.history.push("/myReviews");
       },
       error: () => {}

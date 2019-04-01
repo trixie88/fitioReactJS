@@ -15,6 +15,9 @@ import Main from "./components/Main";
 import Reviews from "./components/Reviews";
 import Calendar from "./components/Calendar";
 import TrainingSession from "./components/TrainingSession";
+import Profile from "./components/Profile";
+import { TrainersCalendar } from "./components/TrainersCalendar";
+import BookTrainingSession from "./components/BookTrainingSession";
 
 class App extends Component {
   render() {
@@ -31,8 +34,14 @@ class App extends Component {
             <Route path="/myReviews" component={Reviews} />
             <Route path="/searchResults" component={Results} />
             <Route path="/calendar" component={Calendar} />
+            <Route path="/profile/:id" component={Profile} />
             <Route path="/trainingSession" component={TrainingSession} />
+            <Route
+              path="/bookTrainingSession"
+              component={BookTrainingSession}
+            />
             <Route path="/register" exact component={Register} />
+            <Route path="/trainersCalendar/:id" component={TrainersCalendar} />
           </Switch>
           <Footer />
         </Router>

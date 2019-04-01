@@ -24,12 +24,17 @@ class LoginPage extends Component {
       dataType: "json",
       async: true,
       success: data => {
-        localStorage.setItem("token", data.alphanumeric);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        dispatch({ type: "SET_LOGGED_IN_BOOLEAN", payload: true });
-        dispatch({ type: "FILL_LOGGEDINUSER", payload: data.user });
-        dispatch({ type: "FILL_TOKEN_IN_STATE", payload: data.alphanumeric });
-        this.props.history.push("/myProfile");
+        console.log(data.user);
+        if (data.user.activeStatus == 0) {
+          alert("Your account is not activated");
+        } else {
+          localStorage.setItem("token", data.alphanumeric);
+          localStorage.setItem("user", JSON.stringify(data.user));
+          dispatch({ type: "SET_LOGGED_IN_BOOLEAN", payload: true });
+          dispatch({ type: "FILL_LOGGEDINUSER", payload: data.user });
+          dispatch({ type: "FILL_TOKEN_IN_STATE", payload: data.alphanumeric });
+          this.props.history.push("/myProfile");
+        }
       },
       error: function() {
         alert("errorr");

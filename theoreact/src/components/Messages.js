@@ -60,6 +60,7 @@ class Messages extends Component {
   };
 
   changePage = page => {
+    console.log(page);
     if (page != 0 && page <= this.state.numberOfPages) {
       let token = localStorage.getItem("token");
       let index1 = (page - 1) * 10;

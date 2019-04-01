@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "./stylesheets/calendar.css";
 import DayWithSession from "./DayWithSession";
+import CalendarDay from "./CalendarDay";
 import { withRouter, Link } from "react-router-dom";
 import { Consumer } from "../context";
 
-export class Calendar extends Component {
+export class TrainersCalendar extends Component {
   state = {
     sessions: [],
     month: 0,
@@ -13,15 +14,19 @@ export class Calendar extends Component {
   };
 
   componentDidMount() {
+    const { id } = this.props.match.params;
+    console.log("tio IDDD EINAI");
+    console.log(id);
     var date = new Date();
     var month = date.getMonth();
+
     this.setState({
       month: month + 1
     });
     let token = localStorage.getItem("token");
     window.$.ajax({
       type: "GET",
-      url: "http://localhost:8080/session/myTrainingSessions",
+      url: `http://localhost:8080/session/trainersSession/${id}`,
       headers: { "X-MSG-AUTH": token },
       dataType: "json",
       async: true,
@@ -39,21 +44,32 @@ export class Calendar extends Component {
   };
 
   showModal = day => {
+    const { id } = this.props.match.params;
+    console.log("to id tou xristi einai");
+    console.log(id);
     let dayToString = day.toString();
 
     if (day < 10) {
       dayToString = "0" + dayToString;
     }
+    let monthToString = this.state.month.toString();
 
-    let date = "2019-" + this.state.month + "-" + dayToString;
+    if (this.state.month < 10) {
+      monthToString = "0" + monthToString;
+    }
+
+    let date = "2019-" + monthToString + "-" + dayToString;
     let token = localStorage.getItem("token");
+    console.log("to date einai");
+    console.log(date);
     window.$.ajax({
       type: "GET",
-      url: "http://localhost:8080/session/trainer-sessions-date/" + date,
+      url: `http://localhost:8080/session/trainer-sessions-date/${date}/${id}`,
       headers: { "X-MSG-AUTH": token },
       dataType: "json",
       async: true,
       success: modalSessions => {
+        console.log("ta modal esessions einai");
         console.log(modalSessions);
         this.setState({
           modalSessions: modalSessions,
@@ -65,6 +81,48 @@ export class Calendar extends Component {
     window.$("#sessionModal").modal("show");
   };
 
+  generateModalAvailableHours = dayOfModal => {
+    const { id } = this.props.match.params;
+    let availableHours = [
+      "10:00:00",
+      "11:00:00",
+      "12:00:00",
+      "13:00:00",
+      "14:00:00",
+      "15:00:00",
+      "16:00:00",
+      "17:00:00",
+      "18:00:00",
+      "19:00:00",
+      "20:00:00"
+    ];
+
+    let closedHours = this.state.modalSessions.map(session => {
+      return session.time;
+    });
+
+    availableHours = availableHours.filter(hour => {
+      return !(closedHours.indexOf(hour) > -1);
+    });
+
+    let timeSlots = [];
+    availableHours.forEach(hour => {
+      timeSlots.push(
+        <Link
+          class="list-group-item"
+          to={{
+            pathname: "/bookTrainingSession",
+            state: { day: dayOfModal, hour: hour, trainersId: id }
+          }}
+          onClick={this.hideModal}
+        >
+          {"Hour: " + hour + " , Click to Book"}
+        </Link>
+      );
+    });
+    return timeSlots;
+  };
+
   generateDays = () => {
     let days = [];
     let month = this.state.month;
@@ -74,28 +132,15 @@ export class Calendar extends Component {
     } else {
       monthToString = month.toString();
     }
-    let daysWithSession = this.state.sessions.map(session => {
-      if (session.date.slice(5, 7) == monthToString) {
-        return parseInt(session.date.slice(8, 10));
-      }
-    });
 
     for (var i = 1; i <= 31; i++) {
-      if (daysWithSession.includes(i)) {
-        days.push(
-          <DayWithSession
-            month={this.state.month}
-            day={i}
-            showModal={this.showModal}
-          />
-        );
-      } else {
-        days.push(
-          <div class="day">
-            <span class="date">{i}</span>
-          </div>
-        );
-      }
+      days.push(
+        <CalendarDay
+          month={this.state.month}
+          day={i}
+          showModal={this.showModal}
+        />
+      );
     }
     return days;
   };
@@ -185,26 +230,12 @@ export class Calendar extends Component {
                           </button>
                         </div>
                         <div class="modal-body">
-                          <h6>Your sessions for {this.state.dateOfModal}</h6>
+                          <h6>Available hours for {this.state.dateOfModal}</h6>
                           <hr />
                           <ul class="list-group">
-                            {this.state.modalSessions.map(session => (
-                              <Link
-                                class="list-group-item"
-                                to={{
-                                  pathname: "/trainingSession",
-                                  state: { session: session }
-                                }}
-                                onClick={this.hideModal}
-                              >
-                                {"Time: " +
-                                  session.time +
-                                  " , Area: " +
-                                  session.area.city +
-                                  " ,Type: " +
-                                  session.trainingType.title}
-                              </Link>
-                            ))}
+                            {this.generateModalAvailableHours(
+                              this.state.dateOfModal
+                            )}
                           </ul>
                         </div>
                         <div class="modal-footer">
@@ -229,4 +260,4 @@ export class Calendar extends Component {
   }
 }
 
-export default withRouter(Calendar);
+export default withRouter(TrainersCalendar);

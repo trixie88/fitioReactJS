@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 
 // TODO: Password repeat validation, check if email AND username already exists
 class Register extends Component {
@@ -14,6 +15,7 @@ class Register extends Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     const uname = this.username.current.value;
     const pass = this.password.current.value;
     const em = this.email.current.value;
@@ -32,45 +34,26 @@ class Register extends Component {
       lastName: lname,
       role: {
         id: 1
-      }
+      },
+      activeStatus: 1
     };
 
-    fetch(url, {
-      method: "POST", // or 'PUT'
-      body: JSON.stringify(formData), // data can be `string` or {object}!
-      headers: { "Content-Type": "application/json" }
-    })
-      .then(() => {
+    window.$.ajax({
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      url: url,
+      data: JSON.stringify(formData),
+      async: true,
+      success: () => {
         console.log("Success redirecting");
         this.props.history.push("/login");
-      })
-      .catch(error => console.error("Error:", error));
-
-    // window.$.ajax({
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //     },
-    //     url: 'http://localhost:8080/register/save',
-    //     dataType: 'json',
-    //     type: 'POST',
-    //     data: {
-    //         username: uname,
-    //         password: pass,
-    //         email: em,
-    //         firstName: fname,
-    //         lastName: lname,
-    //         role: 1
-    //     }
-    // }).then(data => {
-    //     console.log('Data returned');
-    //     console.log(JSON.stringify(data));
-    //     // localStorage.setItem('token', json.token);
-    // }).fail(function(xhr) {
-    //     //Ajax request failed.
-    //     var errorMessage = xhr.status + ': ' + xhr.statusText;
-    //     alert('Error - ' + errorMessage);
-    // });
+        console.log("didntt redirect");
+        event.preventDefault();
+      },
+      error: error => {
+        alert(error.responseJSON.message);
+      }
+    });
 
     event.preventDefault();
   }
@@ -209,4 +192,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default withRouter(Register);

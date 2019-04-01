@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link, withRouter } from "react-router-dom";
 
 class TrainerResult extends Component {
   render() {
@@ -38,9 +39,12 @@ class TrainerResult extends Component {
               </p>
             </div>
             <div className="col-lg-3 p-5">
-              <button type="button" className="btn btn-primary btn-block">
-                CONTACT TRAINER
-              </button>
+              <Link
+                to={`/profile/${this.props.trainer.id}`}
+                className="btn btn-primary btn-block"
+              >
+                Go to Profile
+              </Link>
               <button type="button" className="btn btn-danger btn-block">
                 CANCEL <i className="fas fa-ban" />
               </button>
@@ -52,4 +56,4 @@ class TrainerResult extends Component {
   }
 }
 
-export default TrainerResult;
+export default withRouter(TrainerResult);
