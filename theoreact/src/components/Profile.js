@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import SendMessageModal from "./SendMessageModal";
 class Profile extends Component {
   state = {
     user: {}
@@ -15,7 +16,6 @@ class Profile extends Component {
       dataType: "json",
       async: true,
       success: user => {
-        console.log(user);
         this.setState({
           user
         });
@@ -27,6 +27,7 @@ class Profile extends Component {
   }
   render() {
     const { user } = this.state;
+    const loggedInUser = JSON.parse(localStorage.getItem("user"));
     return (
       <React.Fragment>
         <div id="user-profile-2" class="user-profile">
@@ -47,8 +48,16 @@ class Profile extends Component {
                     <div class="space space-4" />
 
                     <a href="#" class="btn btn-sm btn-block btn-success">
-                      <i class="ace-icon fa fa-plus-circle bigger-120" />
-                      <span class="bigger-110">Add as a friend</span>
+                      {/* <i class="fas fa-paper-plane" /> */}
+                      <button
+                        type="button"
+                        class="btn btn-success"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                      >
+                        <i class="fas fa-paper-plane">Send Message</i>
+                      </button>
+                      {/* <span class="bigger-110">Send Message</span> */}
                     </a>
                   </div>
 
@@ -100,7 +109,7 @@ class Profile extends Component {
                         </div>
 
                         <div class="profile-info-value">
-                          <a href="#">Reviews</a>
+                          <Link to={`/Reviews/${user.id}`}>Reviews</Link>
                         </div>
                       </div>
                     </div>
@@ -112,6 +121,8 @@ class Profile extends Component {
             </div>
           </div>
         </div>
+
+        <SendMessageModal sender={loggedInUser} receiver={user} />
       </React.Fragment>
     );
   }

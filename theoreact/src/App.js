@@ -18,6 +18,7 @@ import TrainingSession from "./components/TrainingSession";
 import Profile from "./components/Profile";
 import { TrainersCalendar } from "./components/TrainersCalendar";
 import BookTrainingSession from "./components/BookTrainingSession";
+import EditAccount from "./components/EditAccount";
 
 class App extends Component {
   render() {
@@ -31,10 +32,11 @@ class App extends Component {
             <Route path="/login" component={LoginPage} />
             <Route path="/myProfile" component={UsersProfile} />
             <Route path="/messages" component={Messages} />
-            <Route path="/myReviews" component={Reviews} />
+            <Route path="/Reviews/:id" component={Reviews} />
             <Route path="/searchResults" component={Results} />
-            <Route path="/calendar" component={Calendar} />
+            <Route path="/myCalendar" component={Calendar} />
             <Route path="/profile/:id" component={Profile} />
+            <Route path="/settings" component={EditAccount} />
             <Route path="/trainingSession" component={TrainingSession} />
             <Route
               path="/bookTrainingSession"

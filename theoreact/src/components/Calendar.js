@@ -6,6 +6,7 @@ import { Consumer } from "../context";
 
 export class Calendar extends Component {
   state = {
+    user: {},
     sessions: [],
     month: 0,
     modalSessions: [],
@@ -15,17 +16,28 @@ export class Calendar extends Component {
   componentDidMount() {
     var date = new Date();
     var month = date.getMonth();
+    let user = JSON.parse(localStorage.getItem("user"));
     this.setState({
+      user,
       month: month + 1
     });
     let token = localStorage.getItem("token");
+
+    let url;
+    if (user.role.id == 2) {
+      url = "http://localhost:8080/session/myTrainingSessions";
+    } else {
+      url = "http://localhost:8080/session/client-sessions";
+    }
+    console.log(user);
     window.$.ajax({
       type: "GET",
-      url: "http://localhost:8080/session/myTrainingSessions",
+      url: url,
       headers: { "X-MSG-AUTH": token },
       dataType: "json",
       async: true,
       success: sessions => {
+        console.log(sessions);
         this.setState({
           sessions: sessions
         });
@@ -44,17 +56,24 @@ export class Calendar extends Component {
     if (day < 10) {
       dayToString = "0" + dayToString;
     }
-
     let date = "2019-" + this.state.month + "-" + dayToString;
-    let token = localStorage.getItem("token");
+    let user = this.state.user;
+    let url;
+    if (user.role.id == 2) {
+      url = `http://localhost:8080/session/trainer-sessions-date/${date}`;
+    } else {
+      url = `http://localhost:8080/session/client-sessions-date/${date}/${
+        user.id
+      }`;
+    }
+
     window.$.ajax({
       type: "GET",
-      url: "http://localhost:8080/session/trainer-sessions-date/" + date,
-      headers: { "X-MSG-AUTH": token },
+      url: url,
+      headers: { "X-MSG-AUTH": localStorage.getItem("token") },
       dataType: "json",
       async: true,
       success: modalSessions => {
-        console.log(modalSessions);
         this.setState({
           modalSessions: modalSessions,
           dateOfModal: date
@@ -130,14 +149,22 @@ export class Calendar extends Component {
     return (
       <Consumer>
         {value => {
-          const { loggedIn } = value;
+          const { loggedIn, loggedInUser } = value;
+          console.log(loggedInUser.role);
           if (!loggedIn) {
             this.props.history.push("/login");
           } else {
             return (
               <React.Fragment>
                 <div class="bodyDivCalendar">
-                  <h1 class="h1Calendar">{this.state.month + "/ 2019"}</h1>
+                  <h1 class="h1Calendar">
+                    {this.state.month +
+                      "/ 2019 " +
+                      loggedInUser.firstName +
+                      " " +
+                      loggedInUser.lastName}
+                    {/* {loggedInUser.role.id == 2 ? " Trainer" : null} */}
+                  </h1>
                   <button onClick={this.previousMonth}>Previous Month</button>
                   <button onClick={this.nextMonth}>Next Month</button>
 

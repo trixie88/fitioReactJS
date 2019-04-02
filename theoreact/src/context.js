@@ -50,6 +50,12 @@ export class Provider extends Component {
           myReviews: action.payload
         });
         break;
+      case "EDIT_ACCOUNT":
+        console.log("apo contextt messa");
+        console.log(action.payload);
+        this.setState({
+          loggedInUser: action.payload
+        });
       case "TEST":
         console.log("+++++++++++++++++++++");
         console.log("to state einaii ayti ti stigmi");

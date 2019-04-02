@@ -2,6 +2,21 @@ import React, { Component } from "react";
 import { Consumer } from "../context";
 
 class TrainingSession extends Component {
+  cancelSession = session => {
+    console.log(session);
+    window.$.ajax({
+      type: "POST",
+      url: `http://localhost:8080/session/cancel-session/${session.id}`,
+      headers: { "X-MSG-AUTH": localStorage.getItem("token") },
+      async: true,
+      success: () => {
+        alert("Succesfuly Canceled");
+        this.props.history.push("/myProfile");
+      },
+      error: () => {}
+    });
+  };
+
   render() {
     return (
       <Consumer>
@@ -47,7 +62,13 @@ class TrainingSession extends Component {
                     <li class="list-group-item">{"Price: " + trainer.price}</li>
                   </ul>
                   <div class="card-body">
-                    <button type="button" class="btn btn-danger">
+                    <button
+                      onClick={this.cancelSession.bind(
+                        this,
+                        this.props.location.state.session
+                      )}
+                      class="btn btn-danger"
+                    >
                       Cancel Training
                     </button>
                   </div>

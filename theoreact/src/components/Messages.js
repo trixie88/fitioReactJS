@@ -206,6 +206,13 @@ class Messages extends Component {
                       </thead>
                       <tbody>
                         {" "}
+                        {messages.length == 0 ? (
+                          <img
+                            src="http://photodentro.edu.gr/v/images/loading.gif"
+                            alt="Loading"
+                            width="80"
+                          />
+                        ) : null}
                         {messages.map(message => {
                           count = count + 1;
 

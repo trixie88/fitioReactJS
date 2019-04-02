@@ -14,7 +14,7 @@ class UserHeader extends Component {
       success: reviews => {
         console.log(reviews.results);
         dispatch({ type: "FILL_MY_REVIEWS", payload: reviews.results });
-        this.props.history.push("/myReviews");
+        this.props.history.push("/Reviews/" + loggedInUser.id);
       },
       error: () => {}
     });
@@ -37,7 +37,7 @@ class UserHeader extends Component {
                         </Link>
                       </label>
                       <label class="btn btn-secondary">
-                        <Link to="/calendar" style={{ color: "white" }}>
+                        <Link to="/myCalendar" style={{ color: "white" }}>
                           My Training Sessions
                         </Link>
                       </label>
