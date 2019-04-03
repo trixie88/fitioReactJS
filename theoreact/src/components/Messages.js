@@ -90,7 +90,9 @@ class Messages extends Component {
   generateNumberOfPage = () => {
     let pages = [];
     for (var i = 1; i <= this.state.numberOfPages; i++) {
-      pages.push(<PageOfPagination pageNum={i} changePage={this.changePage} />);
+      pages.push(
+        <PageOfPagination key={i} pageNum={i} changePage={this.changePage} />
+      );
     }
     return pages;
   };

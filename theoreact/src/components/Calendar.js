@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import "./stylesheets/calendar.css";
 import DayWithSession from "./DayWithSession";
-import { withRouter, Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Consumer } from "../context";
 
 export class Calendar extends Component {
   state = {
-    user: {},
+    user:
+      localStorage.getItem("user") != ""
+        ? JSON.parse(localStorage.getItem("user"))
+        : null,
     sessions: [],
     month: 0,
     modalSessions: [],
@@ -14,36 +17,35 @@ export class Calendar extends Component {
   };
 
   componentDidMount() {
-    var date = new Date();
-    var month = date.getMonth();
-    let user = JSON.parse(localStorage.getItem("user"));
-    this.setState({
-      user,
-      month: month + 1
-    });
-    let token = localStorage.getItem("token");
+    if (localStorage.getItem("user") !== "") {
+      var date = new Date();
+      var month = date.getMonth();
+      let user = this.state.user;
+      this.setState({
+        month: month + 1
+      });
+      let token = localStorage.getItem("token");
 
-    let url;
-    if (user.role.id == 2) {
-      url = "http://localhost:8080/session/myTrainingSessions";
-    } else {
-      url = "http://localhost:8080/session/client-sessions";
+      let url;
+      if (user.role.id == 2) {
+        url = "http://localhost:8080/session/myTrainingSessions";
+      } else {
+        url = "http://localhost:8080/session/client-sessions";
+      }
+      window.$.ajax({
+        type: "GET",
+        url: url,
+        headers: { "X-MSG-AUTH": token },
+        dataType: "json",
+        async: true,
+        success: sessions => {
+          this.setState({
+            sessions: sessions
+          });
+        },
+        error: () => {}
+      });
     }
-    console.log(user);
-    window.$.ajax({
-      type: "GET",
-      url: url,
-      headers: { "X-MSG-AUTH": token },
-      dataType: "json",
-      async: true,
-      success: sessions => {
-        console.log(sessions);
-        this.setState({
-          sessions: sessions
-        });
-      },
-      error: () => {}
-    });
   }
 
   hideModal = () => {
@@ -103,6 +105,7 @@ export class Calendar extends Component {
       if (daysWithSession.includes(i)) {
         days.push(
           <DayWithSession
+            key={i}
             month={this.state.month}
             day={i}
             showModal={this.showModal}
@@ -150,7 +153,6 @@ export class Calendar extends Component {
       <Consumer>
         {value => {
           const { loggedIn, loggedInUser } = value;
-          console.log(loggedInUser.role);
           if (!loggedIn) {
             this.props.history.push("/login");
           } else {
@@ -158,15 +160,20 @@ export class Calendar extends Component {
               <React.Fragment>
                 <div class="bodyDivCalendar">
                   <h1 class="h1Calendar">
-                    {this.state.month +
-                      "/ 2019 " +
-                      loggedInUser.firstName +
-                      " " +
-                      loggedInUser.lastName}
-                    {/* {loggedInUser.role.id == 2 ? " Trainer" : null} */}
+                    {this.state.month + "/ 2019  Your Calendar "}
+                    {this.state.user.role.id == 2 ? " (Trainer)" : null}
                   </h1>
-                  <button onClick={this.previousMonth}>Previous Month</button>
-                  <button onClick={this.nextMonth}>Next Month</button>
+                  <div class="h1Calendar">
+                    <button
+                      class="btn btn-warning"
+                      onClick={this.previousMonth}
+                    >
+                      Previous Month
+                    </button>
+                    <button class="btn btn-warning" onClick={this.nextMonth}>
+                      Next Month
+                    </button>
+                  </div>
 
                   <section id="calendar" class="collectonme">
                     <div id="day-labels">

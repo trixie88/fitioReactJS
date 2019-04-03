@@ -7,6 +7,7 @@ import { Consumer } from "../context";
 
 export class TrainersCalendar extends Component {
   state = {
+    user: {},
     sessions: [],
     month: 0,
     modalSessions: [],
@@ -15,8 +16,6 @@ export class TrainersCalendar extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    console.log("tio IDDD EINAI");
-    console.log(id);
     var date = new Date();
     var month = date.getMonth();
 
@@ -37,7 +36,25 @@ export class TrainersCalendar extends Component {
       },
       error: () => {}
     });
+    this.getUser(id);
   }
+
+  getUser = id => {
+    window.$.ajax({
+      type: "GET",
+      url: `http://localhost:8080/find/user/${id}`,
+      dataType: "json",
+      async: true,
+      success: user => {
+        this.setState({
+          user
+        });
+      },
+      error: error => {
+        this.props.history.push("/");
+      }
+    });
+  };
 
   hideModal = () => {
     window.$("#sessionModal").modal("hide");
@@ -45,8 +62,6 @@ export class TrainersCalendar extends Component {
 
   showModal = day => {
     const { id } = this.props.match.params;
-    console.log("to id tou xristi einai");
-    console.log(id);
     let dayToString = day.toString();
 
     if (day < 10) {
@@ -176,15 +191,28 @@ export class TrainersCalendar extends Component {
       <Consumer>
         {value => {
           const { loggedIn } = value;
+          const { user } = this.state;
           if (!loggedIn) {
             this.props.history.push("/login");
           } else {
             return (
               <React.Fragment>
                 <div class="bodyDivCalendar">
-                  <h1 class="h1Calendar">{this.state.month + "/ 2019"}</h1>
-                  <button onClick={this.previousMonth}>Previous Month</button>
-                  <button onClick={this.nextMonth}>Next Month</button>
+                  <h1 class="h1Calendar">{this.state.month + "/ 2019 "}</h1>
+                  <div class="h1Calendar">
+                    <h2>
+                      Available dates of {user.firstName + " " + user.lastName}
+                    </h2>
+                    <button
+                      class="btn btn-warning"
+                      onClick={this.previousMonth}
+                    >
+                      Previous Month
+                    </button>
+                    <button class="btn btn-warning" onClick={this.nextMonth}>
+                      Next Month
+                    </button>
+                  </div>
 
                   <section id="calendar" class="collectonme">
                     <div id="day-labels">

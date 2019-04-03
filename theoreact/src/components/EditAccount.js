@@ -4,16 +4,27 @@ import TextInputGroup from "./TextInputGroup";
 // let user = JSON.parse(localStorage.getItem("user"));
 class EditAccount extends Component {
   state = {
-    user: JSON.parse(localStorage.getItem("user")),
-    email: JSON.parse(localStorage.getItem("user")).email,
-    firstName: JSON.parse(localStorage.getItem("user")).firstName,
-    lastName: JSON.parse(localStorage.getItem("user")).lastName,
-    price: JSON.parse(localStorage.getItem("user")).price,
+    user: {},
+    email: "",
+    firstName: "",
+    lastName: "",
+    price: "",
     areas: [],
     trainingTypes: []
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    if (localStorage.getItem("user") !== "") {
+      let user = JSON.parse(localStorage.getItem("user"));
+      this.setState({
+        user,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        price: user.price
+      });
+    }
+  }
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -71,7 +82,8 @@ class EditAccount extends Component {
           } else {
             return (
               <div className="card mb-12">
-                <div className="card-header">Edit Account</div>
+                <div className="card-header">Edit Account </div>
+
                 <div className="card-body">
                   <form onSubmit={this.editAccount.bind(this, dispatch)}>
                     <TextInputGroup
@@ -111,7 +123,7 @@ class EditAccount extends Component {
                     <input
                       type="submit"
                       value="Save"
-                      className="btn btn-light btn-block"
+                      className="btn btn-success btn-block"
                     />
                   </form>
                 </div>

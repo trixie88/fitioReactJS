@@ -19,6 +19,7 @@ import Profile from "./components/Profile";
 import { TrainersCalendar } from "./components/TrainersCalendar";
 import BookTrainingSession from "./components/BookTrainingSession";
 import EditAccount from "./components/EditAccount";
+import EditTrainingTypesAndAreas from "./components/EditTrainingTypesAndAreas";
 
 class App extends Component {
   render() {
@@ -37,6 +38,10 @@ class App extends Component {
             <Route path="/myCalendar" component={Calendar} />
             <Route path="/profile/:id" component={Profile} />
             <Route path="/settings" component={EditAccount} />
+            <Route
+              path="/editTrainingTypesAndAreas"
+              component={EditTrainingTypesAndAreas}
+            />
             <Route path="/trainingSession" component={TrainingSession} />
             <Route
               path="/bookTrainingSession"

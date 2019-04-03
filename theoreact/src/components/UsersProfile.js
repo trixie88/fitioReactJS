@@ -73,14 +73,24 @@ class UsersProfile extends Component {
                                   <Link to="/settings">Edit Account</Link>
                                 </div>
                               </div>
-
                               <div class="profile-info-row">
                                 <div class="profile-info-name">
-                                  <i class="middle ace-icon fa fa-twitter-square bigger-150 light-blue" />
+                                  <i class="fas fa-cog" />
                                 </div>
 
                                 <div class="profile-info-value">
-                                  <a href="#">Follow me on Twitter</a>
+                                  <Link to="#">Change Password</Link>
+                                </div>
+                              </div>
+                              <div class="profile-info-row">
+                                <div class="profile-info-name">
+                                  <i class="fas fa-cog" />
+                                </div>
+
+                                <div class="profile-info-value">
+                                  <Link to="/editTrainingTypesAndAreas">
+                                    Edit TrainingTypes and Areas
+                                  </Link>
                                 </div>
                               </div>
                             </div>
