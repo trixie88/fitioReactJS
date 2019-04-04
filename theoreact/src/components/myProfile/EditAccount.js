@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Consumer } from "../context";
+import { Consumer } from "../../context";
 import TextInputGroup from "./TextInputGroup";
 // let user = JSON.parse(localStorage.getItem("user"));
 class EditAccount extends Component {
@@ -53,14 +53,14 @@ class EditAccount extends Component {
     window.$.ajax({
       type: "PUT",
       contentType: "application/json; charset=utf-8",
-      url: `http://localhost:8080/e-personal/users/${user.id}`,
+      url: `http://localhost:8080/user/update`,
       headers: { "X-MSG-AUTH": localStorage.getItem("token") },
       data: JSON.stringify(user),
       async: true,
       success: userUpdated => {
-        //didn't use the userUpdated cause server returns userUpdated without Id which causes troubles later in the app
-        dispatch({ type: "EDIT_ACCOUNT", payload: user });
-        localStorage.setItem("user", JSON.stringify(user));
+        console.log(userUpdated);
+        dispatch({ type: "EDIT_ACCOUNT", payload: userUpdated });
+        localStorage.setItem("user", JSON.stringify(userUpdated));
         alert("Succesfylly Edited");
         this.props.history.push("/myProfile");
       },

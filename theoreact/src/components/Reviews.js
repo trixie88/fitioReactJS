@@ -45,7 +45,7 @@ class Reviews extends Component {
     console.log("eeee");
     window.$.ajax({
       type: "GET",
-      url: `http://localhost:8080/find/user/${id}`,
+      url: `http://localhost:8080/user/getUser/${id}`,
       dataType: "json",
       async: true,
       success: user => {

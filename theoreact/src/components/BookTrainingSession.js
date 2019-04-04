@@ -21,7 +21,7 @@ class BookTrainingSession extends Component {
   getUser = trainersId => {
     window.$.ajax({
       type: "GET",
-      url: `http://localhost:8080/find/user/${trainersId}`,
+      url: `http://localhost:8080/user/getUser/${trainersId}`,
       dataType: "json",
       async: true,
       success: trainer => {
@@ -39,7 +39,7 @@ class BookTrainingSession extends Component {
   getTrainingTypes = trainersId => {
     window.$.ajax({
       type: "GET",
-      url: `http://localhost:8080/find/trainers-types/${trainersId}`,
+      url: `http://localhost:8080/user/trainers-types/${trainersId}`,
       dataType: "json",
       async: true,
       success: trainingTypes => {
@@ -57,7 +57,7 @@ class BookTrainingSession extends Component {
   getAreas = trainersId => {
     window.$.ajax({
       type: "GET",
-      url: `http://localhost:8080/find/trainers-areas/${trainersId}`,
+      url: `http://localhost:8080/user/trainers-areas/${trainersId}`,
       dataType: "json",
       async: true,
       success: areas => {

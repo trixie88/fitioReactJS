@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import SendMessageModal from "./SendMessageModal";
 class Profile extends Component {
   state = {
+    loggedInUser: {},
     user: {}
   };
 
@@ -10,24 +11,30 @@ class Profile extends Component {
     const { id } = this.props.match.params;
     console.log("too id einaiaaa " + id);
 
-    window.$.ajax({
-      type: "GET",
-      url: `http://localhost:8080/find/user/${id}`,
-      dataType: "json",
-      async: true,
-      success: user => {
-        this.setState({
-          user
-        });
-      },
-      error: error => {
-        this.props.history.push("/");
-      }
-    });
+    if (localStorage.getItem("user") != "") {
+      this.setState({
+        loggedInUser: JSON.parse(localStorage.getItem("user"))
+      });
+      window.$.ajax({
+        type: "GET",
+        url: `http://localhost:8080/user/getUser/${id}`,
+        dataType: "json",
+        async: true,
+        success: user => {
+          this.setState({
+            user
+          });
+        },
+        error: error => {
+          this.props.history.push("/");
+        }
+      });
+    } else {
+      this.props.history.push("/login");
+    }
   }
   render() {
-    const { user } = this.state;
-    const loggedInUser = JSON.parse(localStorage.getItem("user"));
+    const { user, loggedInUser } = this.state;
     return (
       <React.Fragment>
         <div id="user-profile-2" class="user-profile">

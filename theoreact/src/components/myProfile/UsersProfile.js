@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import "./stylesheets/profile.css";
-import { Consumer } from "../context";
+import "../stylesheets/profile.css";
+import { Consumer } from "../../context";
 import { Link, withRouter } from "react-router-dom";
 
 class UsersProfile extends Component {

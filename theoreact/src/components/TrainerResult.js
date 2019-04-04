@@ -4,6 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 class TrainerResult extends Component {
   render() {
     const { firstName, lastName, price } = this.props.trainer;
+    console.log(this.props.trainer);
     return (
       <div className="container-fluid py-1">
         <div className="container">
@@ -19,7 +20,9 @@ class TrainerResult extends Component {
               <h4 className="text-primary">
                 {firstName} {lastName}
               </h4>
-              <p>{this.props.workoutStyle}</p>
+              {this.props.trainer.trainingTypes.map(trainingType => {
+                return <p>{trainingType.title}</p>;
+              })}
             </div>
             <div className="col-lg-3 pt-4 px-4 border-right">
               <p className="card-text">

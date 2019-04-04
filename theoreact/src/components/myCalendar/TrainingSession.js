@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Consumer } from "../context";
+import { Consumer } from "../../context";
 
 class TrainingSession extends Component {
   cancelSession = session => {

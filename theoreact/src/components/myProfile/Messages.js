@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "./stylesheets/messages.css";
-import { Consumer } from "../context";
-import PageOfPagination from "./PageOfPagination";
+import "../stylesheets/messages.css";
+import { Consumer } from "../../context";
+import PageOfPagination from "../PageOfPagination";
 import Message from "./Message";
 
 class Messages extends Component {

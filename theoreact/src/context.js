@@ -56,6 +56,7 @@ export class Provider extends Component {
         this.setState({
           loggedInUser: action.payload
         });
+        break;
       case "TEST":
         console.log("+++++++++++++++++++++");
         console.log("to state einaii ayti ti stigmi");

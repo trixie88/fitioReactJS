@@ -2,24 +2,24 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import UserHeader from "./components/UserHeader";
-import Landing from "./components/Landing";
+import Landing from "./components/startingPage/Landing";
 import Footer from "./components/Footer";
 import Register from "./components/Register";
 import { Provider } from "./context";
 import "./App.css";
 import LoginPage from "./components/LoginPage";
-import UsersProfile from "./components/UsersProfile";
-import Messages from "./components/Messages";
+import UsersProfile from "./components/myProfile/UsersProfile";
+import Messages from "./components/myProfile/Messages";
 import Results from "./components/Results";
-import Main from "./components/Main";
+import Main from "./components/startingPage/Main";
 import Reviews from "./components/Reviews";
-import Calendar from "./components/Calendar";
-import TrainingSession from "./components/TrainingSession";
+import Calendar from "./components/myCalendar/Calendar";
+import TrainingSession from "./components/myCalendar/TrainingSession";
 import Profile from "./components/Profile";
 import { TrainersCalendar } from "./components/TrainersCalendar";
 import BookTrainingSession from "./components/BookTrainingSession";
-import EditAccount from "./components/EditAccount";
-import EditTrainingTypesAndAreas from "./components/EditTrainingTypesAndAreas";
+import EditAccount from "./components/myProfile/EditAccount";
+import EditTrainingTypesAndAreas from "./components/myProfile/EditTrainingTypesAndAreas";
 
 class App extends Component {
   render() {

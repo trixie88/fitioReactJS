@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import "./stylesheets/calendar.css";
+import "../stylesheets/calendar.css";
 import DayWithSession from "./DayWithSession";
 import { Link, withRouter } from "react-router-dom";
-import { Consumer } from "../context";
+import { Consumer } from "../../context";
 
 export class Calendar extends Component {
   state = {

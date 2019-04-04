@@ -86,14 +86,6 @@ class Header extends Component {
                             <Link to="/login" className="nav-link">
                               Login
                             </Link>
-                            {/* <a
-                              className="nav-link"
-                              data-toggle="modal"
-                              data-target="#loginModal"
-                              href="#loginModal"
-                            >
-                              Login
-                            </a> */}
                           </li>
 
                           <li className="nav-item dropdown">
@@ -113,17 +105,11 @@ class Header extends Component {
                               aria-labelledby="navbarDropdownRegisterLink"
                             >
                               {/* working - needs consideration */}
-                              <Link
-                                className="dropdown-item"
-                                to="/register/user"
-                              >
+                              <Link className="dropdown-item" to="/register">
                                 {" "}
                                 Register as User
                               </Link>
-                              <Link
-                                className="dropdown-item"
-                                to="/register/trainer"
-                              >
+                              <Link className="dropdown-item" to="/register">
                                 {" "}
                                 Register as Trainer
                               </Link>

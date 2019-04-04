@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./stylesheets/calendar.css";
-import DayWithSession from "./DayWithSession";
 import CalendarDay from "./CalendarDay";
 import { withRouter, Link } from "react-router-dom";
 import { Consumer } from "../context";
@@ -42,7 +41,7 @@ export class TrainersCalendar extends Component {
   getUser = id => {
     window.$.ajax({
       type: "GET",
-      url: `http://localhost:8080/find/user/${id}`,
+      url: `http://localhost:8080/user/getUser/${id}`,
       dataType: "json",
       async: true,
       success: user => {
