@@ -58,6 +58,34 @@ class UserHeader extends Component {
                           My Reviews
                         </Link>
                       </label>
+                      <label class="btn btn-secondary">
+                        <div class="btn-group">
+                          <button
+                            type="button"
+                            class="btn btn-danger dropdown-toggle"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            <i class="fas fa-bell" />
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">
+                              tha boun posa minimata
+                            </a>
+                            <a class="dropdown-item" href="#">
+                              posa kainourgia sessions
+                            </a>
+                            <a class="dropdown-item" href="#">
+                              akiromena sessions
+                            </a>
+                            <div class="dropdown-divider" />
+                            <a class="dropdown-item" href="#">
+                              Separated link
+                            </a>
+                          </div>
+                        </div>
+                      </label>
                     </div>
                   </div>
                 </nav>
