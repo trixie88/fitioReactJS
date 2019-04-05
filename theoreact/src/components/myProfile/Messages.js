@@ -39,26 +39,28 @@ class Messages extends Component {
 
   getMessages = () => {
     let token = localStorage.getItem("token");
-    window.$.ajax({
-      type: "GET",
-      contentType: "application/json; charset=utf-8",
-      url: "http://localhost:8080/messages/inbox?index1=0&index2=10",
-      headers: {
-        "X-MSG-AUTH": token
-      },
-      dataType: "json",
-      async: true,
-      success: data => {
-        if (data.count !== this.state.count) {
-          this.setState({
-            count: data.count,
-            messages: data.results
-          });
-          this.calculateNumberOfPages();
-        }
-      },
-      error: () => {}
-    });
+    if (token != "") {
+      window.$.ajax({
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        url: "http://localhost:8080/messages/inbox?index1=0&index2=10",
+        headers: {
+          "X-MSG-AUTH": token
+        },
+        dataType: "json",
+        async: true,
+        success: data => {
+          if (data.count !== this.state.count) {
+            this.setState({
+              count: data.count,
+              messages: data.results
+            });
+            this.calculateNumberOfPages();
+          }
+        },
+        error: () => {}
+      });
+    }
   };
 
   calculateNumberOfPages = () => {
