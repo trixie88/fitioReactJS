@@ -24,7 +24,13 @@ class UserHeader extends Component {
     return (
       <Consumer>
         {value => {
-          const { loggedIn, token, dispatch, loggedInUser } = value;
+          const {
+            loggedIn,
+            token,
+            dispatch,
+            loggedInUser,
+            newMessagesCount
+          } = value;
           return (
             <React.Fragment>
               {loggedIn ? (
@@ -70,19 +76,19 @@ class UserHeader extends Component {
                             <i class="fas fa-bell" />
                           </button>
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">
-                              tha boun posa minimata
-                            </a>
-                            <a class="dropdown-item" href="#">
+                            <Link class="dropdown-item" to="/messages">
+                              {"New Messages: " + newMessagesCount}
+                            </Link>
+                            {/* <a class="dropdown-item" href="#">
                               posa kainourgia sessions
                             </a>
                             <a class="dropdown-item" href="#">
                               akiromena sessions
-                            </a>
-                            <div class="dropdown-divider" />
+                            </a> */}
+                            {/* <div class="dropdown-divider" />
                             <a class="dropdown-item" href="#">
                               Separated link
-                            </a>
+                            </a> */}
                           </div>
                         </div>
                       </label>

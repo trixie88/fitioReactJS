@@ -8,32 +8,58 @@ class Messages extends Component {
   state = {
     messages: [],
     count: 0, //how Many Messages
-    type: "sent", //default is sent
+    type: "inbox", //default is sent
     numberOfPages: 0, //default 0
     currentPage: 1
   };
 
   componentDidMount() {
+    setInterval(this.getMessages, 5000);
+
+    // let token = localStorage.getItem("token");
+    // window.$.ajax({
+    //   type: "GET",
+    //   contentType: "application/json; charset=utf-8",
+    //   url: "http://localhost:8080/messages/inbox?index1=0&index2=10",
+    //   headers: {
+    //     "X-MSG-AUTH": token
+    //   },
+    //   dataType: "json",
+    //   async: true,
+    //   success: data => {
+    //     this.setState({
+    //       count: data.count,
+    //       messages: data.results
+    //     });
+    //     this.calculateNumberOfPages();
+    //   },
+    //   error: () => {}
+    // });
+  }
+
+  getMessages = () => {
     let token = localStorage.getItem("token");
     window.$.ajax({
       type: "GET",
       contentType: "application/json; charset=utf-8",
-      url: "http://localhost:8080/messages/sent?index1=0&index2=10",
+      url: "http://localhost:8080/messages/inbox?index1=0&index2=10",
       headers: {
         "X-MSG-AUTH": token
       },
       dataType: "json",
       async: true,
       success: data => {
-        this.setState({
-          count: data.count,
-          messages: data.results
-        });
-        this.calculateNumberOfPages();
+        if (data.count !== this.state.count) {
+          this.setState({
+            count: data.count,
+            messages: data.results
+          });
+          this.calculateNumberOfPages();
+        }
       },
       error: () => {}
     });
-  }
+  };
 
   calculateNumberOfPages = () => {
     let count = this.state.count;
@@ -174,17 +200,16 @@ class Messages extends Component {
                 <div class="container">
                   <div class="row col-md-12 col-md-offset-2 custyle">
                     <button
-                      onClick={this.sentMessages}
-                      class="btn btn-primary btn-xs pull-right"
-                    >
-                      Sent{" "}
-                    </button>
-
-                    <button
                       onClick={this.inboxMessages}
                       class="btn btn-primary btn-xs pull-right"
                     >
                       Inbox{" "}
+                    </button>
+                    <button
+                      onClick={this.sentMessages}
+                      class="btn btn-primary btn-xs pull-right"
+                    >
+                      Sent{" "}
                     </button>
 
                     {this.state.type == "sent" ? (

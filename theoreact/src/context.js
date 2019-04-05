@@ -11,6 +11,7 @@ export class Provider extends Component {
     loggedInUser: {},
     inbox: [],
     outbox: [],
+    newMessagesCount: 0,
     dispatch: action => this.setState(state => this.reducer(state, action))
   };
 
@@ -57,6 +58,14 @@ export class Provider extends Component {
           loggedInUser: action.payload
         });
         break;
+      case "MESSAGE_WAS_READ":
+        if (this.state.newMessagesCount > 0) {
+          let newCount = this.state.newMessagesCount - 1;
+          this.setState({
+            newMessagesCount: newCount
+          });
+        }
+        break;
       case "TEST":
         console.log("+++++++++++++++++++++");
         console.log("to state einaii ayti ti stigmi");
@@ -84,6 +93,7 @@ export class Provider extends Component {
             loggedIn: true,
             token: token
           });
+          this.getNewMessagesCount(this.state.loggedInUser.id);
         },
         error: () => {
           localStorage.setItem("user", "");
@@ -97,6 +107,23 @@ export class Provider extends Component {
       });
     }
   }
+
+  getNewMessagesCount = userId => {
+    window.$.ajax({
+      type: "GET",
+      url: `http://localhost:8080/messages/newMessagesCount/${userId}`,
+      dataType: "text",
+      async: true,
+      success: count => {
+        if (count != this.state.newMessagesCount) {
+          this.setState({
+            newMessagesCount: count
+          });
+        }
+      },
+      error: () => {}
+    });
+  };
 
   render() {
     return (
