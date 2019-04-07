@@ -17,7 +17,6 @@ class TrainingSession extends Component {
       // script.async = true;
       // this.instance.appendChild(script);
       const { session } = this.state;
-      console.log(this.state.session);
       let date = new Date();
       let day = date.getDay();
       let month = date.getMonth() + 1;
@@ -64,7 +63,7 @@ class TrainingSession extends Component {
         alert("Succesfuly Canceled");
         this.props.history.push("/myProfile");
       },
-      error: () => {}
+      error: () => { }
     });
   };
 
@@ -78,7 +77,7 @@ class TrainingSession extends Component {
       contentType: "text/plain",
       url: `http://localhost:8080/session/add-comment/${
         this.state.session.id
-      }/${rating}`,
+        }/${rating}`,
       headers: { "X-MSG-AUTH": localStorage.getItem("token") },
       data: review,
       async: true,
@@ -87,7 +86,7 @@ class TrainingSession extends Component {
         window.$("#exampleModal").modal("hide");
         this.props.history.push("/myProfile");
       },
-      error: () => {}
+      error: () => { }
     });
   };
 
@@ -147,16 +146,16 @@ class TrainingSession extends Component {
                         Review Session
                       </button>
                     ) : (
-                      <button
-                        onClick={this.cancelSession.bind(
-                          this,
-                          this.props.location.state.session
-                        )}
-                        class="btn btn-danger"
-                      >
-                        Cancel Training
+                        <button
+                          onClick={this.cancelSession.bind(
+                            this,
+                            this.props.location.state.session
+                          )}
+                          class="btn btn-danger"
+                        >
+                          Cancel Training
                       </button>
-                    )}
+                      )}
                     {/* <button
                       onClick={this.cancelSession.bind(
                         this,

@@ -33,7 +33,7 @@ export class TrainersCalendar extends Component {
           sessions: sessions
         });
       },
-      error: () => {}
+      error: () => { }
     });
     this.getUser(id);
   }
@@ -90,7 +90,7 @@ export class TrainersCalendar extends Component {
           dateOfModal: date
         });
       },
-      error: () => {}
+      error: () => { }
     });
     window.$("#sessionModal").modal("show");
   };
@@ -137,27 +137,67 @@ export class TrainersCalendar extends Component {
     return timeSlots;
   };
 
+
   generateDays = () => {
     let days = [];
-    let month = this.state.month;
+    let stateMonth = this.state.month;
     let monthToString;
-    if (month < 10) {
-      monthToString = "0" + month.toString();
+    if (stateMonth < 10) {
+      monthToString = "0" + stateMonth.toString();
     } else {
-      monthToString = month.toString();
+      monthToString = stateMonth.toString();
     }
 
-    for (var i = 1; i <= 31; i++) {
-      days.push(
-        <CalendarDay
-          month={this.state.month}
-          day={i}
-          showModal={this.showModal}
-        />
-      );
+    let date = new Date();
+    let currentDayOfMonth = date.getDate();
+    let currentMonth = date.getMonth() + 1;
+
+    if (currentMonth <= stateMonth) {
+      for (var i = 1; i <= currentDayOfMonth; i++) {
+        days.push(
+          <div class="day">
+            <span class="date"> {i} </span>
+          </div>
+        );
+      }
+      for (var i = currentDayOfMonth + 1; i <= 31; i++) {
+        days.push(
+          <CalendarDay month={this.state.month} day={i} showModal={this.showModal} />
+        );
+      }
+    } else {
+      for (var i = 1; i <= 31; i++) {
+        days.push(
+          <div class="day">
+            <span class="date"> {i} </span>
+          </div>
+        );
+      }
     }
     return days;
   };
+
+  // generateDays = () => {
+  //   let days = [];
+  //   let month = this.state.month;
+  //   let monthToString;
+  //   if (month < 10) {
+  //     monthToString = "0" + month.toString();
+  //   } else {
+  //     monthToString = month.toString();
+  //   }
+
+  //   for (var i = 1; i <= 31; i++) {
+  //     days.push(
+  //       <CalendarDay
+  //         month={this.state.month}
+  //         day={i}
+  //         showModal={this.showModal}
+  //       />
+  //     );
+  //   }
+  //   return days;
+  // };
 
   nextMonth = () => {
     let thisMonth = this.state.month;
