@@ -141,18 +141,27 @@ export class TrainersCalendar extends Component {
   generateDays = () => {
     let days = [];
     let stateMonth = this.state.month;
-    let monthToString;
-    if (stateMonth < 10) {
-      monthToString = "0" + stateMonth.toString();
-    } else {
-      monthToString = stateMonth.toString();
-    }
+    // let monthToString;
+    // if (stateMonth < 10) {
+    //   monthToString = "0" + stateMonth.toString();
+    // } else {
+    //   monthToString = stateMonth.toString();
+    // }
 
     let date = new Date();
     let currentDayOfMonth = date.getDate();
     let currentMonth = date.getMonth() + 1;
 
-    if (currentMonth <= stateMonth) {
+    if (stateMonth < currentMonth) {
+      for (var i = 1; i <= 31; i++) {
+        days.push(
+          <div class="day">
+            <span class="date"> {i} </span>
+          </div>
+        );
+      }
+    }
+    if (stateMonth == currentMonth) {
       for (var i = 1; i <= currentDayOfMonth; i++) {
         days.push(
           <div class="day">
@@ -165,15 +174,37 @@ export class TrainersCalendar extends Component {
           <CalendarDay month={this.state.month} day={i} showModal={this.showModal} />
         );
       }
-    } else {
+    }
+    if (stateMonth > currentMonth) {
       for (var i = 1; i <= 31; i++) {
         days.push(
-          <div class="day">
-            <span class="date"> {i} </span>
-          </div>
+          <CalendarDay month={this.state.month} day={i} showModal={this.showModal} />
         );
       }
     }
+
+    // if (currentMonth <= stateMonth) {
+    //   for (var i = 1; i <= currentDayOfMonth; i++) {
+    //     days.push(
+    //       <div class="day">
+    //         <span class="date"> {i} </span>
+    //       </div>
+    //     );
+    //   }
+    //   for (var i = currentDayOfMonth + 1; i <= 31; i++) {
+    //     days.push(
+    //       <CalendarDay month={this.state.month} day={i} showModal={this.showModal} />
+    //     );
+    //   }
+    // } else {
+    //   for (var i = 1; i <= 31; i++) {
+    //     days.push(
+    //       <div class="day">
+    //         <span class="date"> {i} </span>
+    //       </div>
+    //     );
+    //   }
+    // }
     return days;
   };
 

@@ -1,14 +1,20 @@
 import React, { Component } from "react";
 import { Consumer } from "../context";
 import { Link, withRouter } from "react-router-dom";
+import NewTraininSessionsModal from "./NewTraininSessionsModal";
 
 class UserHeader extends Component {
+
+  state = {
+    newTrainingSessions: []
+  }
+
   getReviews = (dispatch, loggedInUser) => {
     window.$.ajax({
       type: "GET",
       url: `http://localhost:8080/session/review-trainer/${
         loggedInUser.id
-      }?index1=0&index2=10`,
+        }?index1=0&index2=10`,
       dataType: "json",
       async: true,
       success: reviews => {
@@ -16,9 +22,48 @@ class UserHeader extends Component {
         dispatch({ type: "FILL_MY_REVIEWS", payload: reviews.results });
         this.props.history.push("/Reviews/" + loggedInUser.id);
       },
-      error: () => {}
+      error: () => { }
     });
   };
+
+  componentWillMount() {
+    if (localStorage.getItem("user") !== "") {
+      let user = JSON.parse(localStorage.getItem("user"));
+      window.$.ajax({
+        type: "GET",
+        url: `http://localhost:8080/session/newTrainingSessions/${user.id}`,
+        headers: { "X-MSG-AUTH": localStorage.getItem("token") },
+        dataType: "json",
+        async: true,
+        success: newTrainingSessions => {
+          this.setState({
+            newTrainingSessions
+          });
+        },
+        error: () => { }
+      });
+
+    }
+  }
+  showModal = () => {
+    window.$("#newSessionsModal").modal("show");
+  }
+
+  removeSessionFromNew = (session) => {
+    window.$.ajax({
+      type: "POST",
+      url: `http://localhost:8080/session/notified/${session.id}`,
+      headers: { "X-MSG-AUTH": localStorage.getItem("token") },
+      async: true,
+      success: () => {
+        this.setState({
+          newTrainingSessions: [...this.state.newTrainingSessions.filter(newSession => newSession.id != session.id)]
+        });
+      },
+      error: () => { }
+    });
+    window.$("#newSessionsModal").modal("hide");
+  }
 
   render() {
     return (
@@ -79,16 +124,9 @@ class UserHeader extends Component {
                             <Link class="dropdown-item" to="/messages">
                               {"New Messages: " + newMessagesCount}
                             </Link>
-                            {/* <a class="dropdown-item" href="#">
-                              posa kainourgia sessions
-                            </a>
-                            <a class="dropdown-item" href="#">
-                              akiromena sessions
-                            </a> */}
-                            {/* <div class="dropdown-divider" />
-                            <a class="dropdown-item" href="#">
-                              Separated link
-                            </a> */}
+                            <button class="dropdown-item" onClick={this.showModal} >
+                              {"New TrainingSessions: " + this.state.newTrainingSessions.length}
+                            </button>
                           </div>
                         </div>
                       </label>
@@ -96,6 +134,8 @@ class UserHeader extends Component {
                   </div>
                 </nav>
               ) : null}
+              <NewTraininSessionsModal newTrainingSessions={this.state.newTrainingSessions} removeSessionFromNew={this.removeSessionFromNew}></NewTraininSessionsModal>
+
             </React.Fragment>
           );
         }}

@@ -3,27 +3,42 @@ import { Consumer } from "../../context";
 import RatingModal from "./RatingModal";
 class TrainingSession extends Component {
   state = {
-    session:
-      this.props.location.state != null
-        ? this.props.location.state.session
-        : null,
+    // session:
+    //   this.props.location.state != null
+    //     ? this.props.location.state.session
+    //     : null,
+    session: {},
     pastSession: false
   };
 
-  componentDidMount() {
+  componentWillMount() {
+    if (this.props.location.state != null) {
+      this.setState({
+        session: this.props.location.state.session
+      }, function () {
+        this.checkIfPastOrFutureSession();
+      })
+    }
+  }
+
+  componentWillReceiveProps(nextProps, nextState) {
+    let newSession = nextProps.location.state.session;
+    this.setState({
+      session: newSession
+    }, function () {
+      this.checkIfPastOrFutureSession();
+    })
+  }
+
+  checkIfPastOrFutureSession = () => {
     if (this.state.session != null) {
-      // const script = document.createElement("script");
-      // script.src = "../../../public/javascript/rating.js";
-      // script.async = true;
-      // this.instance.appendChild(script);
       const { session } = this.state;
       let date = new Date();
-      let day = date.getDay();
+      let day = date.getDate();
       let month = date.getMonth() + 1;
 
       let year = date.getFullYear();
       let hour = date.getHours();
-      console.log(day);
       if (day < 10) {
         day = "0" + day;
       }
@@ -39,7 +54,11 @@ class TrainingSession extends Component {
         this.setState({
           pastSession: true
         });
-        console.log("einai paliooo");
+      }
+      if (session.date > currentDate) {
+        this.setState({
+          pastSession: false
+        })
       }
       if (session.date == currentDate) {
         let sessionTime = session.time.slice(0, 2);
@@ -47,13 +66,18 @@ class TrainingSession extends Component {
           this.setState({
             pastSession: true
           });
+        } else {
+          this.setState({
+            pastSession: false
+          })
         }
       }
+
+
     }
   }
 
   cancelSession = session => {
-    console.log(session);
     window.$.ajax({
       type: "POST",
       url: `http://localhost:8080/session/cancel-session/${session.id}`,
@@ -70,8 +94,6 @@ class TrainingSession extends Component {
   addReview = rating => {
     // let rating = document.getElementById("ratingVathmos").innerText;
     let review = document.getElementById("typedReview").value;
-    console.log(review);
-    console.log(rating);
     window.$.ajax({
       type: "POST",
       contentType: "text/plain",
@@ -96,12 +118,12 @@ class TrainingSession extends Component {
         {value => {
           const { loggedIn } = value;
           const { state } = this.props.location;
-          const { pastSession } = this.state;
           if (!loggedIn) {
             this.props.history.push("/login");
           } else if (state == null) {
             this.props.history.push("/myCalendar");
           } else {
+            const { pastSession } = this.state;
             const {
               area,
               client,
@@ -109,7 +131,7 @@ class TrainingSession extends Component {
               time,
               trainer,
               trainingType
-            } = this.props.location.state.session;
+            } = this.state.session;
             return (
               <React.Fragment>
                 <br />
@@ -136,6 +158,7 @@ class TrainingSession extends Component {
                     <li class="list-group-item">{"Price: " + trainer.price}</li>
                   </ul>
                   <div class="card-body">
+
                     {pastSession ? (
                       <button
                         type="button"
@@ -156,15 +179,7 @@ class TrainingSession extends Component {
                           Cancel Training
                       </button>
                       )}
-                    {/* <button
-                      onClick={this.cancelSession.bind(
-                        this,
-                        this.props.location.state.session
-                      )}
-                      class="btn btn-danger"
-                    >
-                      Cancel Training
-                    </button> */}
+
                   </div>
                 </div>
                 <br />
