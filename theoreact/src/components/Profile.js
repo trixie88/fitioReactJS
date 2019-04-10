@@ -9,9 +9,7 @@ class Profile extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    console.log("too id einaiaaa " + id);
-
-    if (localStorage.getItem("user") != "") {
+    if (localStorage.getItem("user") != null && localStorage.getItem("user") != "") {
       this.setState({
         loggedInUser: JSON.parse(localStorage.getItem("user"))
       });
@@ -33,6 +31,15 @@ class Profile extends Component {
       this.props.history.push("/login");
     }
   }
+
+  generateProfilePic = () => {
+    if (this.state.user.photoLink == null || this.state.user.photoLink == "") {
+      return (<img class="editable img-responsive" alt="Profile Picccc" src="https://www.chiosstartup.com/1.jpg" style={{ width: "250px" }} />)
+    } else {
+      return (<img class="editable img-responsive" alt="Profile Pic" src={this.state.user.photoLink} style={{ width: "250px" }} />)
+    }
+  }
+
   render() {
     const { user, loggedInUser } = this.state;
     return (
@@ -44,12 +51,7 @@ class Profile extends Component {
                 <div class="row">
                   <div class="col-xs-12 col-sm-3 center">
                     <span class="profile-picture">
-                      <img
-                        class="editable img-responsive"
-                        alt=" Avatar"
-                        id="avatar2"
-                        src="http://bootdey.com/img/Content/avatar/avatar6.png"
-                      />
+                      {this.generateProfilePic()}
                     </span>
 
                     <div class="space space-4" />

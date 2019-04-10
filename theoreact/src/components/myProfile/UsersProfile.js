@@ -4,12 +4,84 @@ import { Consumer } from "../../context";
 import { Link, withRouter } from "react-router-dom";
 
 class UsersProfile extends Component {
+
+  state = {
+    user: {},
+    photoLink: ""
+  }
+
+  componentWillMount() {
+    if (localStorage.getItem("user") != null && localStorage.getItem("user") != "") {
+      let user = JSON.parse(localStorage.getItem("user"));
+      this.setState({
+        user: user,
+        photoLink: user.photoLink
+      })
+    }
+  }
+
+  uploadPic = () => {
+    let profilePicInput = document.getElementById("profilePicInput");
+    let files = profilePicInput.files;
+    if (files.length === 0) {
+      alert("Please select a file");
+    } else {
+      var formData = new FormData();
+      formData.append("file", files[0]);
+      window.$.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "http://localhost:8080/files/uploadFile",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: (response) => {
+          this.savePhotoLink(response.fileDownloadUri);
+        },
+        error: (error) => {
+          console.log(error);
+          // process error
+        }
+      });
+    }
+  }
+
+  savePhotoLink = (link) => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    window.$.ajax({
+      type: "POST",
+      contentType: "text/plain",
+      url: `http://localhost:8080/files/savePhotoLink/${user.id}`,
+      // headers: { "X-MSG-AUTH": token },
+      data: link,
+      async: true,
+      success: () => {
+        user.photoLink = link;
+        localStorage.setItem("user", JSON.stringify(user));
+        this.setState({
+          photoLink: link
+        })
+        alert("SUCCESFULLY UPLOADED");
+
+      },
+      error: () => { }
+    });
+  };
+
+  generateProfilePic = () => {
+    if (this.state.photoLink == "" || this.state.photoLink == null) {
+      return (<img class="editable img-responsive" alt="Upload A Pictt" src="https://www.chiosstartup.com/1.jpg" style={{ width: "250px" }} />)
+    } else {
+      return (<img class="editable img-responsive" alt="Upload A Picdd" src={this.state.photoLink} style={{ width: "250px" }} />)
+    }
+  }
+
+
   render() {
     return (
       <Consumer>
         {value => {
           const { loggedIn, loggedInUser, token, dispatch } = value;
-          // console.log(loggedInUser.role.id);
           if (!loggedIn) {
             this.props.history.push("/login");
           } else {
@@ -20,24 +92,26 @@ class UsersProfile extends Component {
                     <div class="tab-content no-border padding-24">
                       <div id="home" class="tab-pane in active">
                         <div class="row">
-                          <div class="col-xs-6 col-sm-3 center">
+                          <div class="col-xs-12 col-sm-3 center">
                             <span class="profile-picture">
-                              <img
-                                class="editable img-responsive"
-                                alt=" Avatar"
-                                id="avatar2"
-                                src="http://bootdey.com/img/Content/avatar/avatar6.png"
-                              />
+                              {this.generateProfilePic()}
                             </span>
 
                             <div class="space space-4" />
+
+                            <div class="form-group">
+                              <label for="exampleFormControlFile1">Select Picture Below</label>
+                              <input type="file" class="form-control-file" id="profilePicInput" accept=".jpg, .png, .gif" />
+                            </div>
+                            <button type="button" class="btn btn-primary" onClick={this.uploadPic}>
+                              Upload
+                              </button>
                           </div>
 
                           <div class="col-xs-6 col-sm-3">
                             <h4 class="blue">
                               <span class="middle">
                                 {loggedInUser.firstName} {loggedInUser.lastName}{" "}
-                                {/* {loggedInUser.role.id == 2 ? "Trainer" : null} */}
                               </span>
                             </h4>
 

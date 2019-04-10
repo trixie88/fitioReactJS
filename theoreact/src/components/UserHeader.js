@@ -26,25 +26,55 @@ class UserHeader extends Component {
     });
   };
 
-  componentWillMount() {
-    if (localStorage.getItem("user") !== "") {
-      let user = JSON.parse(localStorage.getItem("user"));
-      window.$.ajax({
-        type: "GET",
-        url: `http://localhost:8080/session/newTrainingSessions/${user.id}`,
-        headers: { "X-MSG-AUTH": localStorage.getItem("token") },
-        dataType: "json",
-        async: true,
-        success: newTrainingSessions => {
-          this.setState({
-            newTrainingSessions
-          });
-        },
-        error: () => { }
-      });
+  componentDidUpdate() {
+    // console.log("ekana update kai eimai i bara");
+    this.getNewTrainingSessions();
+  }
+
+  componentDidMount() {
+    this.getNewTrainingSessions();
+    // if (localStorage.getItem("user") !== "") {
+    //   let user = JSON.parse(localStorage.getItem("user"));
+    //   window.$.ajax({
+    //     type: "GET",
+    //     url: `http://localhost:8080/session/newTrainingSessions/${user.id}`,
+    //     headers: { "X-MSG-AUTH": localStorage.getItem("token") },
+    //     dataType: "json",
+    //     async: true,
+    //     success: newTrainingSessions => {
+    //       this.setState({
+    //         newTrainingSessions
+    //       });
+    //     },
+    //     error: () => { }
+    //   });
+
+    // }
+  }
+
+  getNewTrainingSessions = () => {
+    if (localStorage.getItem("user") != null) {
+      if (localStorage.getItem("user") != "") {
+        let user = JSON.parse(localStorage.getItem("user"));
+        window.$.ajax({
+          type: "GET",
+          url: `http://localhost:8080/session/newTrainingSessions/${user.id}`,
+          headers: { "X-MSG-AUTH": localStorage.getItem("token") },
+          dataType: "json",
+          async: true,
+          success: newTrainingSessions => {
+            this.setState({
+              newTrainingSessions
+            });
+          },
+          error: () => { }
+        });
+
+      }
 
     }
   }
+
   showModal = () => {
     window.$("#newSessionsModal").modal("show");
   }

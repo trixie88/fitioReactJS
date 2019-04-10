@@ -12,8 +12,9 @@ class TrainerResult extends Component {
             <div className="col-lg-3 border-right text-center pt-5">
               <img
                 className="img-fluid"
-                src="./img/sample_trainer_1_thumb.jpg"
-                alt="Trainer 1"
+                src={this.props.trainer.photoLink}
+                alt="Profile Picture"
+                style={{ width: "170px" }}
               />
             </div>
             <div className="col-lg-3 pt-4 px-4 border-right">

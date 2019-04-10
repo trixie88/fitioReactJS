@@ -7,7 +7,7 @@ import { Consumer } from "../../context";
 export class Calendar extends Component {
   state = {
     user:
-      localStorage.getItem("user") != ""
+      localStorage.getItem("user") != null && localStorage.getItem("user") != ""
         ? JSON.parse(localStorage.getItem("user"))
         : null,
     sessions: [],
@@ -17,7 +17,7 @@ export class Calendar extends Component {
   };
 
   componentDidMount() {
-    if (localStorage.getItem("user") !== "") {
+    if (localStorage.getItem("user") != null && localStorage.getItem("user") != "") {
       var date = new Date();
       var month = date.getMonth();
       let user = this.state.user;
@@ -43,7 +43,7 @@ export class Calendar extends Component {
             sessions: sessions
           });
         },
-        error: () => {}
+        error: () => { }
       });
     }
   }
@@ -66,7 +66,7 @@ export class Calendar extends Component {
     } else {
       url = `http://localhost:8080/session/client-sessions-date/${date}/${
         user.id
-      }`;
+        }`;
     }
 
     window.$.ajax({
@@ -81,7 +81,7 @@ export class Calendar extends Component {
           dateOfModal: date
         });
       },
-      error: () => {}
+      error: () => { }
     });
     window.$("#sessionModal").modal("show");
   };
@@ -153,7 +153,7 @@ export class Calendar extends Component {
       <Consumer>
         {value => {
           const { loggedIn, loggedInUser } = value;
-          if (!loggedIn) {
+          if (!loggedIn || this.state.user == null) {
             this.props.history.push("/login");
           } else {
             return (

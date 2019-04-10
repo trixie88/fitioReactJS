@@ -108,6 +108,13 @@ export class Provider extends Component {
     }
   }
 
+  componentDidUpdate() {
+    if (this.state.loggedInUser != null) {
+      this.getNewMessagesCount(this.state.loggedInUser.id);
+    }
+
+  }
+
   getNewMessagesCount = userId => {
     window.$.ajax({
       type: "GET",
@@ -121,7 +128,7 @@ export class Provider extends Component {
           });
         }
       },
-      error: () => {}
+      error: () => { }
     });
   };
 

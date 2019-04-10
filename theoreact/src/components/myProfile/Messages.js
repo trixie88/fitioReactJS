@@ -14,7 +14,8 @@ class Messages extends Component {
   };
 
   componentDidMount() {
-    setInterval(this.getMessages, 5000);
+    // setInterval(this.getMessages, 5000);
+    this.getMessages();
 
     // let token = localStorage.getItem("token");
     // window.$.ajax({
@@ -38,8 +39,8 @@ class Messages extends Component {
   }
 
   getMessages = () => {
-    let token = localStorage.getItem("token");
-    if (token != "") {
+    if (localStorage.getItem("token") != null && localStorage.getItem("token") != "") {
+      let token = localStorage.getItem("token");
       window.$.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
@@ -58,7 +59,7 @@ class Messages extends Component {
             this.calculateNumberOfPages();
           }
         },
-        error: () => {}
+        error: () => { }
       });
     }
   };
@@ -110,7 +111,7 @@ class Messages extends Component {
           });
           this.calculateNumberOfPages();
         },
-        error: () => {}
+        error: () => { }
       });
     }
   };
@@ -144,7 +145,7 @@ class Messages extends Component {
         });
         this.calculateNumberOfPages();
       },
-      error: () => {}
+      error: () => { }
     });
   };
 
@@ -167,7 +168,7 @@ class Messages extends Component {
         });
         this.calculateNumberOfPages();
       },
-      error: () => {}
+      error: () => { }
     });
   };
 
@@ -183,7 +184,7 @@ class Messages extends Component {
           ]
         });
       },
-      error: () => {}
+      error: () => { }
     });
   };
 
@@ -217,8 +218,8 @@ class Messages extends Component {
                     {this.state.type == "sent" ? (
                       <h1> Sent Messages </h1>
                     ) : (
-                      <h1> Inbox Messages </h1>
-                    )}
+                        <h1> Inbox Messages </h1>
+                      )}
                     <div class="alert alert-primary" role="alert">
                       {this.state.count + " messages"}
                     </div>
