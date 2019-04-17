@@ -25,6 +25,7 @@ class Register extends Component {
 
     console.log("Submitting...", uname, pass, em, fname, lname);
 
+    const { roleId } = this.props.location.state;
     const url = "http://localhost:8080/register/save";
     let formData = {
       username: uname,
@@ -33,7 +34,7 @@ class Register extends Component {
       firstName: fname,
       lastName: lname,
       role: {
-        id: 1
+        id: roleId
       },
       activeStatus: 1
     };
@@ -65,7 +66,9 @@ class Register extends Component {
       <div className="container col-8">
         <div className="text-center">
           <h1 className="mx-auto">
-            Register as {this.props.match.params.rolename}
+
+            Register as {this.props.location.state.roleId == 1 ? "User" : "Trainer"}
+            {/* Register as {this.props.match.params.rolename} */}
           </h1>
         </div>
         <form onSubmit={this.handleSubmit} className="pt-3 pb-2">

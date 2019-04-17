@@ -81,42 +81,48 @@ class Header extends Component {
                           </li>
                         </React.Fragment>
                       ) : (
-                        <React.Fragment>
-                          <li className="nav-item">
-                            <Link to="/login" className="nav-link">
-                              Login
+                          <React.Fragment>
+                            <li className="nav-item">
+                              <Link to="/login" className="nav-link">
+                                Login
                             </Link>
-                          </li>
+                            </li>
 
-                          <li className="nav-item dropdown">
-                            <a
-                              className="nav-link dropdown-toggle"
-                              href="#"
-                              id="navbarDropdownRegisterLink"
-                              role="button"
-                              data-toggle="dropdown"
-                              aria-haspopup="true"
-                              aria-expanded="false"
-                            >
-                              Register
+                            <li className="nav-item dropdown">
+                              <a className="nav-link dropdown-toggle"
+                                href="#"
+                                id="navbarDropdownRegisterLink"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                              >
+                                Register
                             </a>
-                            <div
-                              className="dropdown-menu"
-                              aria-labelledby="navbarDropdownRegisterLink"
-                            >
-                              {/* working - needs consideration */}
-                              <Link className="dropdown-item" to="/register">
-                                {" "}
-                                Register as User
+                              <div
+                                className="dropdown-menu"
+                                aria-labelledby="navbarDropdownRegisterLink"
+                              >
+                                {/* working - needs consideration */}
+                                <Link className="dropdown-item"
+                                  to={{
+                                    pathname: "/register",
+                                    state: { roleId: 1 }
+                                  }} >
+                                  Register as User
                               </Link>
-                              <Link className="dropdown-item" to="/register">
-                                {" "}
-                                Register as Trainer
+                                <Link className="dropdown-item"
+                                  to={{
+                                    pathname: "/register",
+                                    state: { roleId: 2 }
+                                  }}>
+                                  {" "}
+                                  Register as Trainer
                               </Link>
-                            </div>
-                          </li>
-                        </React.Fragment>
-                      )}
+                              </div>
+                            </li>
+                          </React.Fragment>
+                        )}
 
                       <li className="nav-item">
                         <a className="nav-link" href="#">

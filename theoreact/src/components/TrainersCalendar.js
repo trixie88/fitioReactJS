@@ -268,7 +268,7 @@ export class TrainersCalendar extends Component {
             return (
               <React.Fragment>
                 <div class="bodyDivCalendar">
-                  <h1 class="h1Calendar">{this.state.month + "/ 2019 "}</h1>
+
                   <div class="h1Calendar">
                     <h2>
                       Available dates of {user.firstName + " " + user.lastName}
@@ -282,6 +282,7 @@ export class TrainersCalendar extends Component {
                     <button class="btn btn-warning" onClick={this.nextMonth}>
                       Next Month
                     </button>
+                    <h1 >{this.state.month + "/ 2019 "}</h1>
                   </div>
 
                   <section id="calendar" class="collectonme">
