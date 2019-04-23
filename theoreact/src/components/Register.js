@@ -66,7 +66,6 @@ class Register extends Component {
       <div className="container col-8">
         <div className="text-center">
           <h1 className="mx-auto">
-
             Register as {this.props.location.state.roleId == 1 ? "User" : "Trainer"}
             {/* Register as {this.props.match.params.rolename} */}
           </h1>
@@ -78,15 +77,7 @@ class Register extends Component {
               Email
             </label>
             <div className="col-sm-4">
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                name="email"
-                placeholder="email@mail.com"
-                required
-                ref={this.email}
-              />
+              <input type="email" className="form-control" id="email" name="email" placeholder="email@mail.com" required ref={this.email} />
             </div>
           </div>
           <div className="form-group row justify-content-center">
@@ -94,14 +85,7 @@ class Register extends Component {
               Username
             </label>
             <div className="col-sm-4">
-              <input
-                type="text"
-                className="form-control"
-                id="username"
-                name="username"
-                required
-                ref={this.username}
-              />
+              <input type="text" className="form-control" id="username" name="username" required ref={this.username} />
             </div>
           </div>
           <div className="form-group row justify-content-center">
@@ -109,16 +93,7 @@ class Register extends Component {
               Password
             </label>
             <div className="col-sm-4 ">
-              <input
-                type="password"
-                className="form-control"
-                id="inputPassword"
-                name="password"
-                minLength="8"
-                aria-describedby="passwordHelpBlock"
-                required
-                ref={this.password}
-              />
+              <input type="password" className="form-control" id="inputPassword" name="password" minLength="8" aria-describedby="passwordHelpBlock" required ref={this.password} />
               <small id="passwordHelpBlock" className="form-text text-muted">
                 At least 8 characters long
               </small>
@@ -129,14 +104,7 @@ class Register extends Component {
               Repeat Password
             </label>
             <div className="col-sm-4">
-              <input
-                type="password"
-                className="form-control"
-                id="repeatPassword"
-                name="p2"
-                aria-describedby="password2HelpBlock"
-                required
-              />
+              <input type="password" className="form-control" id="repeatPassword" name="p2" aria-describedby="password2HelpBlock" required />
               <small id="password2HelpBlock" className="form-text text-muted">
                 Passwords must match
               </small>
@@ -147,14 +115,7 @@ class Register extends Component {
               First Name
             </label>
             <div className="col-sm-4">
-              <input
-                type="text"
-                className="form-control"
-                id="firstName"
-                name="firstName"
-                required
-                ref={this.firstName}
-              />
+              <input type="text" className="form-control" id="firstName" name="firstName" required ref={this.firstName} />
             </div>
           </div>
           <div className="form-group row justify-content-center">
@@ -162,14 +123,7 @@ class Register extends Component {
               Last Name
             </label>
             <div className="col-sm-4">
-              <input
-                type="text"
-                className="form-control"
-                id="lastName"
-                name="lastName"
-                required
-                ref={this.lastName}
-              />
+              <input type="text" className="form-control" id="lastName" name="lastName" required ref={this.lastName} />
             </div>
           </div>
           {/* <div className="form-group row justify-content-center">

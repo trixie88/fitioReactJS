@@ -164,10 +164,7 @@ export class Calendar extends Component {
                     {this.state.user.role.id == 2 ? " (Trainer)" : null}
                   </h1> */}
                   <div class="h1Calendar">
-                    <button
-                      class="btn btn-warning"
-                      onClick={this.previousMonth}
-                    >
+                    <button class="btn btn-warning" onClick={this.previousMonth}  >
                       Previous Month
                     </button>
                     <button class="btn btn-warning" onClick={this.nextMonth}>
@@ -199,26 +196,14 @@ export class Calendar extends Component {
                   </section>
 
                   {/* Modal */}
-                  <div
-                    class="modal fade"
-                    id="sessionModal"
-                    tabindex="-1"
-                    role="dialog"
-                    aria-labelledby="exampleModalLabel"
-                    aria-hidden="true"
-                  >
+                  <div class="modal fade" id="sessionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
                           <h5 class="modal-title" id="exampleModalLabel">
                             Training sessions
                           </h5>
-                          <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                          >
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
@@ -227,30 +212,19 @@ export class Calendar extends Component {
                           <hr />
                           <ul class="list-group">
                             {this.state.modalSessions.map(session => (
-                              <Link
-                                class="list-group-item"
+                              <Link class="list-group-item"
                                 to={{
                                   pathname: "/trainingSession",
                                   state: { session: session }
                                 }}
-                                onClick={this.hideModal}
-                              >
-                                {"Time: " +
-                                  session.time +
-                                  " , Area: " +
-                                  session.area.city +
-                                  " ,Type: " +
-                                  session.trainingType.title}
+                                onClick={this.hideModal} >
+                                {"Time: " + session.time + " , Area: " + session.area.city + " ,Type: " + session.trainingType.title}
                               </Link>
                             ))}
                           </ul>
                         </div>
                         <div class="modal-footer">
-                          <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-dismiss="modal"
-                          >
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" >
                             Close
                           </button>
                         </div>

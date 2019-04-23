@@ -77,9 +77,6 @@ class EditTrainingTypesAndAreas extends Component {
     user.areas = this.state.areas;
     user.trainingTypes = this.state.trainingTypes;
 
-    const { id } = this.state.user;
-    const { trainingTypes } = this.state;
-
     window.$.ajax({
       type: "PUT",
       contentType: "application/json; charset=utf-8",
@@ -88,7 +85,6 @@ class EditTrainingTypesAndAreas extends Component {
       data: JSON.stringify(user),
       async: true,
       success: userUpdated => {
-        console.log(userUpdated);
         dispatch({ type: "EDIT_ACCOUNT", payload: userUpdated });
         localStorage.setItem("user", JSON.stringify(userUpdated));
         alert("Succesfylly Edited");
@@ -98,22 +94,6 @@ class EditTrainingTypesAndAreas extends Component {
         console.log("error");
       }
     });
-    // window.$.ajax({
-    //   type: "POST",
-    //   contentType: "application/json; charset=utf-8",
-    //   url: `http://localhost:8080/user/addTrainingTypes/${id}`,
-    //   headers: { "X-MSG-AUTH": localStorage.getItem("token") },
-    //   data: JSON.stringify(trainingTypes),
-    //   async: true,
-    //   success: () => {
-    //     dispatch({ type: "EDIT_ACCOUNT", payload: user });
-    //     localStorage.setItem("user", JSON.stringify(user));
-    //     alert("koble");
-    //   },
-    //   error: () => {
-    //     alert("errorr");
-    //   }
-    // });
   };
 
   render() {
@@ -130,10 +110,7 @@ class EditTrainingTypesAndAreas extends Component {
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col-sm">
-                      <div
-                        class="card"
-                        style={{ width: "400px", marginLeft: "100px" }}
-                      >
+                      <div class="card" style={{ width: "400px", marginLeft: "100px" }} >
                         <div class="card-body">
                           <h4 class="card-title">Your TrainingTypes</h4>
                           <AllTrainingTypesModal addType={this.addType} />
@@ -143,14 +120,8 @@ class EditTrainingTypesAndAreas extends Component {
                             return (
                               <li key={trainingType.id} class="list-group-item">
                                 {trainingType.title}
-                                <i
-                                  style={{ cursor: "pointer" }}
-                                  class="fas fa-window-close float-right"
-                                  onClick={this.removeTrainingType.bind(
-                                    this,
-                                    trainingType
-                                  )}
-                                />
+                                <i style={{ cursor: "pointer" }} class="fas fa-window-close float-right"
+                                  onClick={this.removeTrainingType.bind(this, trainingType)} />
                               </li>
                             );
                           })}
@@ -159,10 +130,7 @@ class EditTrainingTypesAndAreas extends Component {
                     </div>
 
                     <div class="col-sm" style={{ marginLeft: "100px" }}>
-                      <div
-                        class="card"
-                        style={{ width: "400px", marginLeft: "100px" }}
-                      >
+                      <div class="card" style={{ width: "400px", marginLeft: "100px" }}  >
                         <div class="card-body">
                           <h4 class="card-title">Your Areas</h4>
                           <AllAreasModal addArea={this.addArea} />
@@ -172,11 +140,7 @@ class EditTrainingTypesAndAreas extends Component {
                             return (
                               <li key={area.id} class="list-group-item">
                                 {area.city}
-                                <i
-                                  style={{ cursor: "pointer" }}
-                                  class="fas fa-window-close float-right"
-                                  onClick={this.removeArea.bind(this, area)}
-                                />
+                                <i style={{ cursor: "pointer" }} class="fas fa-window-close float-right" onClick={this.removeArea.bind(this, area)} />
                               </li>
                             );
                           })}

@@ -86,45 +86,11 @@ class EditAccount extends Component {
 
                 <div className="card-body">
                   <form onSubmit={this.editAccount.bind(this, dispatch)}>
-                    <TextInputGroup
-                      label="Name"
-                      name="firstName"
-                      placeholder="Enter name"
-                      value={firstName}
-                      onChange={this.onChange}
-                      //   error={errors.name}
-                    />
-                    <TextInputGroup
-                      label="LastName"
-                      name="lastName"
-                      placeholder="Enter name"
-                      value={lastName}
-                      onChange={this.onChange}
-                      //   error={errors.name}
-                    />
-                    <TextInputGroup
-                      label="Email"
-                      name="email"
-                      placeholder="Enter email"
-                      value={email}
-                      type="email"
-                      onChange={this.onChange}
-                      //   error={errors.email}
-                    />
-                    <TextInputGroup
-                      label="Price"
-                      name="price"
-                      placeholder="Enter price"
-                      value={price}
-                      onChange={this.onChange}
-                      //   error={errors.phone}
-                    />
-
-                    <input
-                      type="submit"
-                      value="Save"
-                      className="btn btn-success btn-block"
-                    />
+                    <TextInputGroup label="Name" name="firstName" placeholder="Enter name" value={firstName} onChange={this.onChange} />
+                    <TextInputGroup label="LastName" name="lastName" placeholder="Enter name" value={lastName} onChange={this.onChange} />
+                    <TextInputGroup label="Email" name="email" placeholder="Enter email" value={email} type="email" onChange={this.onChange} />
+                    <TextInputGroup label="Price" name="price" placeholder="Enter price" value={price} onChange={this.onChange} />
+                    <input type="submit" value="Save" className="btn btn-success btn-block" />
                   </form>
                 </div>
               </div>

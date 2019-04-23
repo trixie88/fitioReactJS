@@ -141,13 +141,6 @@ export class TrainersCalendar extends Component {
   generateDays = () => {
     let days = [];
     let stateMonth = this.state.month;
-    // let monthToString;
-    // if (stateMonth < 10) {
-    //   monthToString = "0" + stateMonth.toString();
-    // } else {
-    //   monthToString = stateMonth.toString();
-    // }
-
     let date = new Date();
     let currentDayOfMonth = date.getDate();
     let currentMonth = date.getMonth() + 1;
@@ -183,52 +176,10 @@ export class TrainersCalendar extends Component {
       }
     }
 
-    // if (currentMonth <= stateMonth) {
-    //   for (var i = 1; i <= currentDayOfMonth; i++) {
-    //     days.push(
-    //       <div class="day">
-    //         <span class="date"> {i} </span>
-    //       </div>
-    //     );
-    //   }
-    //   for (var i = currentDayOfMonth + 1; i <= 31; i++) {
-    //     days.push(
-    //       <CalendarDay month={this.state.month} day={i} showModal={this.showModal} />
-    //     );
-    //   }
-    // } else {
-    //   for (var i = 1; i <= 31; i++) {
-    //     days.push(
-    //       <div class="day">
-    //         <span class="date"> {i} </span>
-    //       </div>
-    //     );
-    //   }
-    // }
     return days;
   };
 
-  // generateDays = () => {
-  //   let days = [];
-  //   let month = this.state.month;
-  //   let monthToString;
-  //   if (month < 10) {
-  //     monthToString = "0" + month.toString();
-  //   } else {
-  //     monthToString = month.toString();
-  //   }
 
-  //   for (var i = 1; i <= 31; i++) {
-  //     days.push(
-  //       <CalendarDay
-  //         month={this.state.month}
-  //         day={i}
-  //         showModal={this.showModal}
-  //       />
-  //     );
-  //   }
-  //   return days;
-  // };
 
   nextMonth = () => {
     let thisMonth = this.state.month;
@@ -305,26 +256,14 @@ export class TrainersCalendar extends Component {
                   </section>
 
                   {/* Modal */}
-                  <div
-                    class="modal fade"
-                    id="sessionModal"
-                    tabindex="-1"
-                    role="dialog"
-                    aria-labelledby="exampleModalLabel"
-                    aria-hidden="true"
-                  >
+                  <div class="modal fade" id="sessionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
                           <h5 class="modal-title" id="exampleModalLabel">
                             Training sessions
                           </h5>
-                          <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                          >
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
@@ -332,17 +271,11 @@ export class TrainersCalendar extends Component {
                           <h6>Available hours for {this.state.dateOfModal}</h6>
                           <hr />
                           <ul class="list-group">
-                            {this.generateModalAvailableHours(
-                              this.state.dateOfModal
-                            )}
+                            {this.generateModalAvailableHours(this.state.dateOfModal)}
                           </ul>
                         </div>
                         <div class="modal-footer">
-                          <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-dismiss="modal"
-                          >
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">
                             Close
                           </button>
                         </div>

@@ -10,8 +10,10 @@ class BookTrainingSession extends Component {
   };
 
   componentDidMount() {
-    const { trainersId } = this.props.location.state;
-    this.getUser(trainersId);
+    if (this.props.location.state != null) {
+      const { trainersId } = this.props.location.state;
+      this.getUser(trainersId);
+    }
     // this.getTrainingTypes(trainersId);
     // this.getAreas(trainersId);
   }
@@ -26,8 +28,8 @@ class BookTrainingSession extends Component {
         console.log(trainer);
         this.setState({
           trainer,
-          trainingTypes: trainer.trainerTypes,
-          areas: trainer.trainerAreas
+          trainingTypes: trainer.trainingTypes,
+          areas: trainer.areas
         });
       },
       error: error => {
@@ -107,33 +109,23 @@ class BookTrainingSession extends Component {
           if (!loggedIn) {
             this.props.history.push("/login");
           } else if (state == null) {
-            this.props.history.push("/calendar");
+            this.props.history.push("/myCalendar");
           } else {
             const { day, hour, trainersId } = this.props.location.state;
             return (
               <React.Fragment>
                 <br />
-                <div
-                  class="card"
-                  style={{ width: "400px", marginLeft: "100px" }}
-                >
+                <div class="card" style={{ width: "400px", marginLeft: "100px" }} >
                   <div class="card-body">
                     <h4 class="card-title">{day + " " + hour}</h4>
                     <h6 class="card-text">BOOK BELOW</h6>
                   </div>
-                  <select
-                    id="trainingType"
-                    class="browser-default custom-select"
-                  >
+                  <select id="trainingType" class="browser-default custom-select">
                     <option selected value={0}>
                       Choose Training type
                     </option>
                     {this.state.trainingTypes.map(trainingType => {
-                      return (
-                        <option value={trainingType.id}>
-                          {trainingType.title}
-                        </option>
-                      );
+                      return (<option value={trainingType.id}> {trainingType.title} </option>);
                     })}
                   </select>
                   <select id="area" class="browser-default custom-select">
@@ -154,11 +146,7 @@ class BookTrainingSession extends Component {
                     <li class="list-group-item">{"Price: " + trainer.price}</li>
                   </ul>
                   <div class="card-body">
-                    <button
-                      onClick={this.bookSession.bind(this, day, hour)}
-                      type="button"
-                      class="btn btn-warning"
-                    >
+                    <button onClick={this.bookSession.bind(this, day, hour)} type="button" class="btn btn-warning" >
                       BOOK TRAINING
                     </button>
                   </div>

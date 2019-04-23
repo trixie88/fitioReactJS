@@ -17,30 +17,18 @@ class TrainingTypeSearch extends Component {
           availableTrainingTypes: trainingTypes
         });
       },
-      error: error => {}
+      error: error => { }
     });
   }
 
   render() {
     return (
       <React.Fragment>
-        <button
-          type="button"
-          class="btn btn-warning btn-block"
-          data-toggle="modal"
-          data-target="#exampleModal"
-        >
+        <button type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#exampleModal" >
           Choose Trainings Types
         </button>
 
-        <div
-          class="modal fade"
-          id="exampleModal"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -57,11 +45,7 @@ class TrainingTypeSearch extends Component {
                         type="checkbox"
                         value={trainingType.id}
                         id="defaultCheck1"
-                        onClick={this.props.changeTrainingTypes.bind(
-                          this,
-                          trainingType
-                        )}
-                      />
+                        onClick={this.props.changeTrainingTypes.bind(this, trainingType)} />
                       <label class="form-check-label" for="defaultCheck1">
                         {trainingType.title}
                       </label>
@@ -70,11 +54,7 @@ class TrainingTypeSearch extends Component {
                 })}
               </div>
               <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-dismiss="modal"
-                >
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                   Save
                 </button>
               </div>

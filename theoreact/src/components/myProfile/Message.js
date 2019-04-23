@@ -22,8 +22,10 @@ class Message extends Component {
       async: true,
       success: () => {
         alert("SUCCESFULLY SENT");
+        document.getElementById("typedMessage").value = "";
+        // window.$('#exampleModal').modal('hide');
       },
-      error: () => {}
+      error: () => { }
     });
   };
 
@@ -42,7 +44,7 @@ class Message extends Component {
           });
           dispatch({ type: "MESSAGE_WAS_READ", payload: "" });
         },
-        error: () => {}
+        error: () => { }
       });
     }
   };
@@ -60,8 +62,8 @@ class Message extends Component {
                     {this.props.count}
                   </td>
                 ) : (
-                  <td>{this.props.count}</td>
-                )}
+                    <td>{this.props.count}</td>
+                  )}
                 {/* // <td style={{ backgroundColor: "gray" }}>{this.props.count}</td> */}
                 <td>
                   {this.props.message.sender.firstName}{" "}
@@ -79,7 +81,7 @@ class Message extends Component {
                     type="button"
                     class="btn btn-primary"
                     data-toggle="modal"
-                    data-target="#exampleModal"
+                    data-target={"#exampleModal" + this.props.unique}
                     onClick={this.setSeen.bind(this, dispatch)}
                   >
                     Read
@@ -96,14 +98,7 @@ class Message extends Component {
                 </td>
               </tr>
 
-              <div
-                class="modal fade"
-                id="exampleModal"
-                tabindex="-1"
-                role="dialog"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-              >
+              <div class="modal fade" id={"exampleModal" + this.props.unique} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -112,47 +107,28 @@ class Message extends Component {
                           " to " +
                           this.props.message.receiver.firstName}
                       </h5>
-                      <button
-                        type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Close"
-                      >
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
-                      Message: {this.props.message.text}
+                      Reply to  Message: {this.props.message.text}
                       <br />
                       <br />
                       <br />
-                      {this.props.type == "inbox" ? (
-                        <textarea
-                          id="typedMessage"
-                          rows="4"
-                          cols="50"
-                          width="100px"
-                          placeholder="Reply Here"
-                        />
-                      ) : null}
+                      {this.props.type == "inbox" ?
+                        (<textarea id="typedMessage" rows="4" cols="50" width="100px" placeholder="Reply Here" />)
+                        : null}
                     </div>
                     <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-dismiss="modal"
-                      >
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" >
                         Close
                       </button>
-                      {this.props.type == "inbox" ? (
-                        <button
-                          type="button"
-                          class="btn btn-primary"
-                          onClick={this.reply}
-                        >
+                      {this.props.type == "inbox" ?
+                        (<button type="button" class="btn btn-primary" onClick={this.reply} >
                           Reply
-                        </button>
-                      ) : null}
+                        </button>)
+                        : null}
                     </div>
                   </div>
                 </div>

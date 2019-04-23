@@ -159,27 +159,13 @@ class TrainingSession extends Component {
                   </ul>
                   <div class="card-body">
 
-                    {pastSession ? (
-                      <button
-                        type="button"
-                        class="btn btn-info"
-                        data-toggle="modal"
-                        data-target="#exampleModal"
-                      >
+                    {pastSession ?
+                      (<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" >
                         Review Session
-                      </button>
-                    ) : (
-                        <button
-                          onClick={this.cancelSession.bind(
-                            this,
-                            this.props.location.state.session
-                          )}
-                          class="btn btn-danger"
-                        >
-                          Cancel Training
-                      </button>
-                      )}
-
+                      </button>) :
+                      (<button onClick={this.cancelSession.bind(this, this.props.location.state.session)} class="btn btn-danger"  >
+                        Cancel Training
+                      </button>)}
                   </div>
                 </div>
                 <br />

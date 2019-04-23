@@ -202,24 +202,16 @@ class Messages extends Component {
               <React.Fragment>
                 <div class="container">
                   <div class="row col-md-12 col-md-offset-2 custyle">
-                    <button
-                      onClick={this.inboxMessages}
-                      class="btn btn-primary btn-xs pull-right"
-                    >
-                      Inbox{" "}
+                    <button onClick={this.inboxMessages} class="btn btn-primary btn-xs pull-right"  >
+                      Inbox
                     </button>
-                    <button
-                      onClick={this.sentMessages}
-                      class="btn btn-primary btn-xs pull-right"
-                    >
-                      Sent{" "}
+                    <button onClick={this.sentMessages} class="btn btn-primary btn-xs pull-right" >
+                      Sent
                     </button>
 
-                    {this.state.type == "sent" ? (
-                      <h1> Sent Messages </h1>
-                    ) : (
-                        <h1> Inbox Messages </h1>
-                      )}
+                    {this.state.type == "sent" ?
+                      (<h1> Sent Messages </h1>) :
+                      (<h1> Inbox Messages </h1>)}
                     <div class="alert alert-primary" role="alert">
                       {this.state.count + " messages"}
                     </div>
@@ -236,24 +228,13 @@ class Messages extends Component {
                       </thead>
                       <tbody>
                         {" "}
-                        {messages.length == 0 ? (
-                          <img
-                            src="http://photodentro.edu.gr/v/images/loading.gif"
-                            alt="Loading"
-                            width="80"
-                          />
-                        ) : null}
+                        {messages.length == 0 ?
+                          (<img src="http://photodentro.edu.gr/v/images/loading.gif" alt="Loading" width="80" />)
+                          : null}
                         {messages.map(message => {
                           count = count + 1;
-
                           return (
-                            <Message
-                              key={message.id}
-                              message={message}
-                              count={count}
-                              type={this.state.type}
-                              delete={this.delete}
-                            />
+                            <Message key={message.id} unique={message.id} message={message} count={count} type={this.state.type} delete={this.delete} />
                           );
                         })}{" "}
                       </tbody>
@@ -263,27 +244,13 @@ class Messages extends Component {
                 <nav aria-label="Page navigation example">
                   <ul class="pagination">
                     <li class="page-item">
-                      <p
-                        class="page-link"
-                        onClick={this.changePage.bind(
-                          this,
-                          this.state.currentPage - 1
-                        )}
-                        style={{ cursor: "pointer" }}
-                      >
+                      <p class="page-link" onClick={this.changePage.bind(this, this.state.currentPage - 1)} style={{ cursor: "pointer" }}>
                         Previous
                       </p>
                     </li>
                     {this.generateNumberOfPage()}
                     <li class="page-item">
-                      <p
-                        class="page-link"
-                        onClick={this.changePage.bind(
-                          this,
-                          this.state.currentPage + 1
-                        )}
-                        style={{ cursor: "pointer" }}
-                      >
+                      <p class="page-link" onClick={this.changePage.bind(this, this.state.currentPage + 1)} style={{ cursor: "pointer" }} >
                         Next
                       </p>
                     </li>
