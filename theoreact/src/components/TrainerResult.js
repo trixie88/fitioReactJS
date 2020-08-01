@@ -4,7 +4,6 @@ import { Link, withRouter } from "react-router-dom";
 class TrainerResult extends Component {
   render() {
     const { firstName, lastName, price } = this.props.trainer;
-    console.log(this.props.trainer);
     return (
       <div className="container-fluid py-1">
         <div className="container">

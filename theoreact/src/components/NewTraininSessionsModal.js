@@ -3,15 +3,10 @@ import { Link, withRouter } from "react-router-dom";
 
 class NewTraininSessionsModal extends Component {
 
-    // removeFromNew = () => {
-    //     window.$("#newSessionsModal").modal("hide");
-    // }
-
     render() {
         return (
             <React.Fragment>
 
-                {/* Modal */}
                 <div
                     class="modal fade"
                     id="newSessionsModal"

@@ -12,12 +12,11 @@ class AreaSearch extends Component {
       dataType: "json",
       async: true,
       success: areas => {
-        console.log(areas);
         this.setState({
           areas: areas
         });
       },
-      error: error => {}
+      error: error => { }
     });
   }
 

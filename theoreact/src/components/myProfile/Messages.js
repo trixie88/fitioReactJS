@@ -14,28 +14,7 @@ class Messages extends Component {
   };
 
   componentDidMount() {
-    // setInterval(this.getMessages, 5000);
     this.getMessages();
-
-    // let token = localStorage.getItem("token");
-    // window.$.ajax({
-    //   type: "GET",
-    //   contentType: "application/json; charset=utf-8",
-    //   url: "http://localhost:8080/messages/inbox?index1=0&index2=10",
-    //   headers: {
-    //     "X-MSG-AUTH": token
-    //   },
-    //   dataType: "json",
-    //   async: true,
-    //   success: data => {
-    //     this.setState({
-    //       count: data.count,
-    //       messages: data.results
-    //     });
-    //     this.calculateNumberOfPages();
-    //   },
-    //   error: () => {}
-    // });
   }
 
   getMessages = () => {
@@ -89,7 +68,6 @@ class Messages extends Component {
   };
 
   changePage = page => {
-    console.log(page);
     if (page != 0 && page <= this.state.numberOfPages) {
       let token = localStorage.getItem("token");
       let index1 = (page - 1) * 10;
@@ -103,7 +81,6 @@ class Messages extends Component {
         dataType: "json",
         async: true,
         success: data => {
-          console.log(data);
           this.setState({
             count: data.count,
             currentPage: page,

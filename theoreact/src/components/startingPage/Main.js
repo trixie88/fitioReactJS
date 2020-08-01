@@ -10,7 +10,6 @@ class Main extends Component {
 
   goToResultsPage = e => {
     e.preventDefault();
-    console.log("+++++++++++++++++++++++++++++++++");
     this.props.theoProps.history.push({
       pathname: "/searchResults",
       state: {
@@ -18,11 +17,6 @@ class Main extends Component {
         trainingTypeIds: this.state.chosenTrainingTypesIDs
       }
     });
-    // let area = document.getElementById("area").value;
-    // let workoutStyle = document.getElementById("workoutStyle").value;
-    // localStorage.setItem("area", area);
-    // localStorage.setItem("workoutStyle", workoutStyle);
-    // this.props.theoProps.history.push("/searchResults");
   };
 
   changeTrainingTypes = (trainingType, e) => {
@@ -40,12 +34,6 @@ class Main extends Component {
       this.setState({
         chosenTrainingTypesIDs: cloneArray
       });
-      // this.setState({
-      //   chosenTrainingTypesIDs: [
-      //     ...this.state.chosenTrainingTypesIDs,
-      //     trainingType.id
-      //   ]
-      // });
     }
   };
 
@@ -57,14 +45,6 @@ class Main extends Component {
       this.setState({
         chosenTrainingTypesIDs: cloneArray
       });
-      // console.log(trainingType);
-      // this.setState({
-      //   chosenTrainingTypesIDs: [
-      //     ...this.state.chosenTrainingTypesIDs.filter(
-      //       id => id != trainingType.id
-      //     )
-      //   ]
-      // });
     }
   };
 
@@ -111,43 +91,11 @@ class Main extends Component {
             <form
               onSubmit={this.goToResultsPage.bind(this)}
               id="myForm"
-              class="form-inline row justify-content-between"
-            >
-              {/* <button
-                type="button"
-                class="btn btn-warning btn-block"
-                data-toggle="modal"
-                data-target="#exampleModal"
-                onClick={this.configureModal.bind(this, "trainingTypesModal")}
-              >
-                Choose Trainings Types
-              </button> */}
-              <TrainingTypeSearch
-                changeTrainingTypes={this.changeTrainingTypes}
-              />
+              class="form-inline row justify-content-between">
+              <TrainingTypeSearch changeTrainingTypes={this.changeTrainingTypes} />
 
               <AreaSearch changeArea={this.changeArea} />
-              {/* <button
-                type="button"
-                class="btn btn-warning btn-block"
-                data-toggle="modal"
-                data-target="#exampleModal2"
-              >
-                Choose Areas
-              </button> */}
 
-              {/* <input
-              type="text"
-              id="area"
-              class="form-control form-control-lg mr-0 col-sm-5"
-              placeholder="Choose area"
-            />
-            <input
-              type="text"
-              id="workoutStyle"
-              class="form-control form-control-lg mr-0 col-sm-5"
-              placeholder="Or choose workout style"
-            /> */}
             </form>
             <div style={{ textAlign: "center" }}>
               <button
@@ -161,10 +109,6 @@ class Main extends Component {
           </div>
         </div>
 
-        {/* <ModalAreasAndTypes
-          state={this.state}
-          changeTrainingTypes={this.changeTrainingTypes}
-        /> */}
       </React.Fragment>
     );
   }

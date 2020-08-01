@@ -21,7 +21,6 @@ class RatingModal extends Component {
         </button>
       );
     }
-    // let difference = 5 - this.state.rating;
     for (let i = this.state.rating; i < 5; i++) {
       stars.push(
         <button
@@ -39,7 +38,6 @@ class RatingModal extends Component {
   };
 
   changeRating = i => {
-    console.log(i);
 
     if (i <= 5) {
       let ratingVathmos = document.getElementById("ratingVathmos");

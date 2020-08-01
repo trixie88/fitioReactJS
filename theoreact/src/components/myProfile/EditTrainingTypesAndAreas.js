@@ -12,15 +12,11 @@ class EditTrainingTypesAndAreas extends Component {
   componentDidMount() {
     if (localStorage.getItem("user") !== "") {
       let user = JSON.parse(localStorage.getItem("user"));
-      console.log("++++++++++++");
-      console.log(user);
       this.setState({
         user,
         trainingTypes: user.trainingTypes,
         areas: user.areas
       });
-      // this.getTrainingTypes(user.id);
-      // this.getAreas(user.id);
     }
   }
 
@@ -51,7 +47,6 @@ class EditTrainingTypesAndAreas extends Component {
   };
 
   addArea = chosenArea => {
-    console.log(chosenArea);
     let areaExists = false;
     this.state.areas.forEach(area => {
       if (area.id == chosenArea.id) {
@@ -101,7 +96,6 @@ class EditTrainingTypesAndAreas extends Component {
       <Consumer>
         {value => {
           const { loggedIn, dispatch } = value;
-          // console.log(loggedInUser.role.id);
           if (!loggedIn) {
             this.props.history.push("/login");
           } else {
@@ -158,8 +152,6 @@ class EditTrainingTypesAndAreas extends Component {
                     Save Changes
                   </button>
                 </div>
-                {/* modal */}
-                {/* <AllTrainingTypesModal addType={this.addType} /> */}
               </React.Fragment>
             );
           }

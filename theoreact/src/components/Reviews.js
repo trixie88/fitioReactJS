@@ -9,10 +9,8 @@ class Reviews extends Component {
   };
 
   componentDidMount = () => {
-    // let userLoggedIn = localStorage.getItem("user");
-    // if (userLoggedIn != "") {
     const { id } = this.props.match.params;
-    // userLoggedIn = JSON.parse(userLoggedIn);
+
     window.$.ajax({
       type: "GET",
       url:
@@ -33,16 +31,12 @@ class Reviews extends Component {
         } else {
           this.getUser(id);
         }
-        //   dispatch({ type: "FILL_MY_REVIEWS", payload: reviews });
-        //   this.props.history.push("/myReviews");
       },
-      error: () => {}
+      error: () => { }
     });
-    // }
   };
 
   getUser = id => {
-    console.log("eeee");
     window.$.ajax({
       type: "GET",
       url: `http://localhost:8080/user/getUser/${id}`,
@@ -74,13 +68,12 @@ class Reviews extends Component {
                   <h2 class="text-center">
                     {reviews.length == 0
                       ? "No Reviews yet for " +
-                        user.firstName +
-                        " " +
-                        user.lastName
+                      user.firstName +
+                      " " +
+                      user.lastName
                       : "Reviews for " + user.firstName + " " + user.lastName}
                   </h2>
                   {reviews.map(review => (
-                    // <h1>eeee</h1>
                     <Review key={review.id} review={review} />
                   ))}
                 </div>

@@ -159,10 +159,6 @@ export class Calendar extends Component {
             return (
               <React.Fragment>
                 <div class="bodyDivCalendar">
-                  {/* <h1 class="h1Calendar">
-                    {this.state.month + "/ 2019  Your Calendar "}
-                    {this.state.user.role.id == 2 ? " (Trainer)" : null}
-                  </h1> */}
                   <div class="h1Calendar">
                     <button class="btn btn-warning" onClick={this.previousMonth}  >
                       Previous Month

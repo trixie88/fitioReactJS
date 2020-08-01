@@ -28,7 +28,6 @@ class Review extends Component {
           <div class="row">
             <div class="col-md-2">
               {this.generateImage()}
-              {/* <img src={this.props.review.session.client.photoLink} alt="profile pic" class="img img-rounded img-fluid"/> */}
               <p class="text-secondary text-center">{this.props.review.date}</p>
             </div>
             <div class="col-md-10">

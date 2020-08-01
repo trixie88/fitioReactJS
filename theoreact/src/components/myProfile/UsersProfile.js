@@ -39,8 +39,8 @@ class UsersProfile extends Component {
           this.savePhotoLink(response.fileDownloadUri);
         },
         error: (error) => {
+          console.log("Could not upload photo");
           console.log(error);
-          // process error
         }
       });
     }
@@ -52,7 +52,6 @@ class UsersProfile extends Component {
       type: "POST",
       contentType: "text/plain",
       url: `http://localhost:8080/files/savePhotoLink/${user.id}`,
-      // headers: { "X-MSG-AUTH": token },
       data: link,
       async: true,
       success: () => {

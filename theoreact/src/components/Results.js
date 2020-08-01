@@ -32,8 +32,7 @@ class Results extends Component {
           }
         },
         error: () => {
-          // alert("No Trainers Available in this area for this Workout Style");
-          // this.props.history.push("/"); //gia kapoio logo den doulevei mesa sto results
+          console.log("Could not fetch trainers")
         }
       });
     }
@@ -47,8 +46,8 @@ class Results extends Component {
           {trainers.length == 0 ? (
             <h2>No Trainers were Found</h2>
           ) : (
-            <h2>Available Trainers</h2>
-          )}
+              <h2>Available Trainers</h2>
+            )}
           {areaIds.length == 0 ? <h2>Missing Chosen Areas</h2> : null}
           {trainingTypeIds.length == 0 ? <h2>Missing Training Types</h2> : null}
         </div>

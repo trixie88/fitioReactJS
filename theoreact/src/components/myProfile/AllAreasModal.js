@@ -12,12 +12,11 @@ class AllAreasModal extends Component {
       dataType: "json",
       async: true,
       success: areas => {
-        console.log(areas);
         this.setState({
           areas
         });
       },
-      error: error => {}
+      error: error => { }
     });
   }
 

@@ -18,12 +18,11 @@ class SendMessageModal extends Component {
         document.getElementById("typedMessage").value = "";
         window.$("#exampleModal").modal("hide");
       },
-      error: () => {}
+      error: () => { }
     });
   };
 
   render() {
-    console.log(this.props.sender.firstName);
     return (
       <div
         class="modal fade"

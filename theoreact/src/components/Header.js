@@ -99,7 +99,6 @@ class Header extends Component {
                                 className="dropdown-menu"
                                 aria-labelledby="navbarDropdownRegisterLink"
                               >
-                                {/* working - needs consideration */}
                                 <Link className="dropdown-item"
                                   to={{
                                     pathname: "/register",

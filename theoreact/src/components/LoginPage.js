@@ -24,7 +24,6 @@ class LoginPage extends Component {
       dataType: "json",
       async: true,
       success: data => {
-        console.log(data.user);
         if (data.user.activeStatus == 0) {
           alert("Your account is not activated");
         } else {
@@ -36,8 +35,8 @@ class LoginPage extends Component {
           this.props.history.push("/myProfile");
         }
       },
-      error: function() {
-        alert("errorr");
+      error: function () {
+        alert("Invalid credentials");
       }
     });
   };

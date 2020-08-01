@@ -23,7 +23,6 @@ class Message extends Component {
       success: () => {
         alert("SUCCESFULLY SENT");
         document.getElementById("typedMessage").value = "";
-        // window.$('#exampleModal').modal('hide');
       },
       error: () => { }
     });
@@ -64,7 +63,6 @@ class Message extends Component {
                 ) : (
                     <td>{this.props.count}</td>
                   )}
-                {/* // <td style={{ backgroundColor: "gray" }}>{this.props.count}</td> */}
                 <td>
                   {this.props.message.sender.firstName}{" "}
                   {this.props.message.sender.lastName}

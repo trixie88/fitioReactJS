@@ -32,10 +32,6 @@ export class Provider extends Component {
           loggedInUser: action.payload
         });
         break;
-      // return {
-      //   ...state,
-      //   loggedInUser: action.payload
-      // };
       case "FILL_TOKEN_IN_STATE":
         this.setState({
           token: action.payload
@@ -52,8 +48,6 @@ export class Provider extends Component {
         });
         break;
       case "EDIT_ACCOUNT":
-        console.log("apo contextt messa");
-        console.log(action.payload);
         this.setState({
           loggedInUser: action.payload
         });
@@ -67,10 +61,6 @@ export class Provider extends Component {
         }
         break;
       case "TEST":
-        console.log("+++++++++++++++++++++");
-        console.log("to state einaii ayti ti stigmi");
-        console.log(this.state);
-        console.log("+++++++++++++++++++++");
         break;
       default:
         return state;

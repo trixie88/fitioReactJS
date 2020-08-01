@@ -21,7 +21,6 @@ class Register extends Component {
     const em = this.email.current.value;
     const fname = this.firstName.current.value;
     const lname = this.lastName.current.value;
-    // const ph = this.phone.current.value;
 
     console.log("Submitting...", uname, pass, em, fname, lname);
 
@@ -46,9 +45,7 @@ class Register extends Component {
       data: JSON.stringify(formData),
       async: true,
       success: () => {
-        console.log("Success redirecting");
         this.props.history.push("/login");
-        console.log("didntt redirect");
         event.preventDefault();
       },
       error: error => {
@@ -60,18 +57,16 @@ class Register extends Component {
   }
 
   render() {
-    // const {rolename} = this.props.match.params;
 
     return (
       <div className="container col-8">
         <div className="text-center">
           <h1 className="mx-auto">
             Register as {this.props.location.state.roleId == 1 ? "User" : "Trainer"}
-            {/* Register as {this.props.match.params.rolename} */}
+
           </h1>
         </div>
         <form onSubmit={this.handleSubmit} className="pt-3 pb-2">
-          {/* onInput='p2.setCustomValidity(p2.value != password.value ? "Passwords do not match" : "")' */}
           <div className="form-group row justify-content-center">
             <label htmlFor="email" className="col-sm-3 col-form-label">
               Email
@@ -126,16 +121,6 @@ class Register extends Component {
               <input type="text" className="form-control" id="lastName" name="lastName" required ref={this.lastName} />
             </div>
           </div>
-          {/* <div className="form-group row justify-content-center">
-                        <label htmlFor="phone" className="col-sm-3 col-form-label">Phone</label>
-                        <div className="col-sm-4">
-                            <input type="tel" className="form-control" pattern="69{1}[0-9]{8}" id="phone" name="phone"
-                                aria-describedby="phoneHelpBlock" required ref={this.phone} />
-                            <small id="phoneHelpBlock" className="form-text text-muted">
-                                10 digits - Format 69XXXXXXXX
-                            </small>
-                        </div>
-                    </div> */}
           <div className="form-group row justify-content-center">
             <div className="col-sm-3">
               <button type="submit" className="btn btn-primary btn-block">

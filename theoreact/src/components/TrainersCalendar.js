@@ -74,8 +74,6 @@ export class TrainersCalendar extends Component {
 
     let date = "2019-" + monthToString + "-" + dayToString;
     let token = localStorage.getItem("token");
-    console.log("to date einai");
-    console.log(date);
     window.$.ajax({
       type: "GET",
       url: `http://localhost:8080/session/trainer-sessions-date/${date}/${id}`,
@@ -83,8 +81,6 @@ export class TrainersCalendar extends Component {
       dataType: "json",
       async: true,
       success: modalSessions => {
-        console.log("ta modal esessions einai");
-        console.log(modalSessions);
         this.setState({
           modalSessions: modalSessions,
           dateOfModal: date

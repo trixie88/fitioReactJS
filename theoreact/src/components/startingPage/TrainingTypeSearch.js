@@ -12,7 +12,6 @@ class TrainingTypeSearch extends Component {
       dataType: "json",
       async: true,
       success: trainingTypes => {
-        console.log(trainingTypes);
         this.setState({
           availableTrainingTypes: trainingTypes
         });

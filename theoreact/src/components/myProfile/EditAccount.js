@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Consumer } from "../../context";
 import TextInputGroup from "./TextInputGroup";
-// let user = JSON.parse(localStorage.getItem("user"));
+
 class EditAccount extends Component {
   state = {
     user: {},
@@ -58,14 +58,13 @@ class EditAccount extends Component {
       data: JSON.stringify(user),
       async: true,
       success: userUpdated => {
-        console.log(userUpdated);
         dispatch({ type: "EDIT_ACCOUNT", payload: userUpdated });
         localStorage.setItem("user", JSON.stringify(userUpdated));
         alert("Succesfylly Edited");
         this.props.history.push("/myProfile");
       },
       error: () => {
-        console.log("error");
+        console.log("Error could not update account");
       }
     });
   };
@@ -76,7 +75,6 @@ class EditAccount extends Component {
       <Consumer>
         {value => {
           const { loggedIn, dispatch } = value;
-          // console.log(loggedInUser.role.id);
           if (!loggedIn) {
             this.props.history.push("/login");
           } else {

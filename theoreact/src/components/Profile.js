@@ -57,7 +57,6 @@ class Profile extends Component {
                     <div class="space space-4" />
 
                     <a href="#" class="btn btn-sm btn-block btn-success">
-                      {/* <i class="fas fa-paper-plane" /> */}
                       <button
                         type="button"
                         class="btn btn-success"
@@ -66,7 +65,6 @@ class Profile extends Component {
                       >
                         <i class="fas fa-paper-plane">Send Message</i>
                       </button>
-                      {/* <span class="bigger-110">Send Message</span> */}
                     </a>
                   </div>
 

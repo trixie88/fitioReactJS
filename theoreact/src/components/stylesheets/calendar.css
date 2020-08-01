@@ -147,14 +147,6 @@
   color: #305dd4;
 }
 
-/* #bottom {
-  position: fixed !important;
-  height: 0;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-} */
-
 @keyframes fadeIn {
   0% {
     top: 0%;

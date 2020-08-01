@@ -3,10 +3,6 @@ import { Consumer } from "../../context";
 import RatingModal from "./RatingModal";
 class TrainingSession extends Component {
   state = {
-    // session:
-    //   this.props.location.state != null
-    //     ? this.props.location.state.session
-    //     : null,
     session: {},
     pastSession: false
   };
@@ -92,7 +88,6 @@ class TrainingSession extends Component {
   };
 
   addReview = rating => {
-    // let rating = document.getElementById("ratingVathmos").innerText;
     let review = document.getElementById("typedReview").value;
     window.$.ajax({
       type: "POST",

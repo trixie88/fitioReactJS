@@ -14,8 +14,6 @@ class BookTrainingSession extends Component {
       const { trainersId } = this.props.location.state;
       this.getUser(trainersId);
     }
-    // this.getTrainingTypes(trainersId);
-    // this.getAreas(trainersId);
   }
 
   getUser = trainersId => {
@@ -25,7 +23,6 @@ class BookTrainingSession extends Component {
       dataType: "json",
       async: true,
       success: trainer => {
-        console.log(trainer);
         this.setState({
           trainer,
           trainingTypes: trainer.trainingTypes,
@@ -37,42 +34,6 @@ class BookTrainingSession extends Component {
       }
     });
   };
-
-  // getTrainingTypes = trainersId => {
-  //   window.$.ajax({
-  //     type: "GET",
-  //     url: `http://localhost:8080/user/trainers-types/${trainersId}`,
-  //     dataType: "json",
-  //     async: true,
-  //     success: trainingTypes => {
-  //       console.log(trainingTypes);
-  //       this.setState({
-  //         trainingTypes
-  //       });
-  //     },
-  //     error: error => {
-  //       this.props.history.push("/");
-  //     }
-  //   });
-  // };
-
-  // getAreas = trainersId => {
-  //   window.$.ajax({
-  //     type: "GET",
-  //     url: `http://localhost:8080/user/trainers-areas/${trainersId}`,
-  //     dataType: "json",
-  //     async: true,
-  //     success: areas => {
-  //       console.log(areas);
-  //       this.setState({
-  //         areas
-  //       });
-  //     },
-  //     error: error => {
-  //       this.props.history.push("/");
-  //     }
-  //   });
-  // };
 
   bookSession = (day, hour) => {
     let areaID = document.getElementById("area").value;
